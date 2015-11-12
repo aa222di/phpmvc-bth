@@ -1,0 +1,189 @@
+/*---------------------------------------------- TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+
+1. TYPOGRAPHICAL ELEMENTS - p, ul, ol, a etc.
+2. HEADINGS
+3. SPECIAL ELEMENTS -read-more link
+4. SITE SPECIFIC
+
+*/
+/* Imports all variables and mixins */
+/*---------------------------------------------- ENGINE ---------------------------------------------------*/
+/* Shall be included in all files - contains fundamental variables, mixins and the gridsystem */
+/*---------------------------------------------- VARIABLES - TABLE OF CONTENTS ---------------------------------------------------*/
+/* Shall contain all fundamental variables for stylesheets
+
+1. TYPOGRAPHY - Colors, sizes, weight and font families
+2. GRID - Sitewidth, columns and contentwidth
+3. COLORS
+4. HEADER
+*/
+/*---------------------------------------------- TYPOGRAPHY VALUES ---------------------------------------------------*/
+/* Here is where you set your font-families and your body font-size. The rest of the typography adjusts itself to this value based on the Golden Ratio.
+This generates a base which is seated on the same baseline. In case you wan't to change individual H1-H6 etc. You have to do that in typography.scss or
+better yet - override the styles in another document. */
+/* FONT SIZE */
+/* FONT COLOR */
+/* FONT WEIGHT */
+/* VARIABLES BASED ON THE GOLDEN RATIO  */
+/* Here is where you set font-sizes individually if you like. Divide pixelvalue by then like so h1 = 16/10 */
+/* LINKS */
+/*---------------------------------------------- GRID VALUES ---------------------------------------------------*/
+/*---------------------------------------------- COLOR VALUES ---------------------------------------------------*/
+/* GENERAL */
+/* NAVIGATION */
+/* FOOTER */
+/* ----------------------------------------------------- MIXINS - TABLE OF CONTENT ----------------------------------------------------- */
+/*
+1. TYPOGRAPHY MIXINS
+2. BUTTONS
+*/
+/* ----------------------------------------------------- TYPOGRAPHY MIXINS ----------------------------------------------------- */
+/* Calculates font size in rem and px  for browser compatability */
+/* Sets h1 on baseline */
+/* ----------------------------------------------------- BUTTONS ----------------------------------------------------- */
+/* Creates button */
+/* ----------------------------------------------------- RESPONSIVE MENU ----------------------------------------------------- */
+/*---------------------------------------------- GRID - TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+1. COLUMN
+2. CENTERCOLUMN
+3. WRAPPER
+4. CLEARFIX
+
+*/
+/* Set columnspan for layout */
+/* Center a column which is alone in its' row */
+/* Set columnspan for layout */
+/* Wrap elements and center on page */
+/* Wrap elements and center on page: This mixin is used to center content like texts on very wide pages*/
+/* Wrap elements with custom padding */
+/* ---------------------------------------------  TYPOGRAPHICAL ELEMENTS -------------------------------------------- */
+html {
+  color: #444;
+  font-family: "Josefin Slab", serif;
+  font-size: 62.5%;
+  /* Sets up the Base 10 stuff */ }
+
+body {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 25px;
+  font-smoothing: antialiased;
+  word-break: normal;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto; }
+
+a,
+button,
+input:focus,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+textarea:focus,
+.button,
+.gallery img {
+  transition: all 0.1s ease-in-out; }
+
+::-moz-selection {
+  background-color: #081635;
+  color: #ddd; }
+
+::selection {
+  background-color: #081635;
+  color: #ddd; }
+
+a {
+  color: #d6ae62;
+  text-decoration: none; }
+
+a:hover {
+  color: #444;
+  text-decoration: underline; }
+
+p {
+  margin: 0 0 25px; }
+
+ol,
+ul {
+  margin: 0 0 13px 0;
+  padding: 0; }
+
+ul {
+  list-style: square inside;
+  padding: 13px 0; }
+
+li {
+  padding-bottom: 13px; }
+  li:last-child {
+    padding: 0; }
+
+nav ul {
+  padding: 0;
+  list-style: none;
+  margin: 0; }
+  nav ul li {
+    padding: 0; }
+
+b,
+strong {
+  font-weight: 700; }
+
+blockquote,
+cite,
+em,
+i {
+  font-style: italic; }
+
+blockquote {
+  margin: 25px;
+  font-weight: 500;
+  font-size: 20px; }
+
+/* ---------------------------------------------  HEADINGS -------------------------------------------- */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a h1, a h2, a h3, a h4, a h5, a h6 {
+  text-decoration: none;
+  color: #081635;
+  transition: .5s ease all; }
+  h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, a h1:hover, a h2:hover, a h3:hover, a h4:hover, a h5:hover, a h6:hover {
+    text-decoration: none !important;
+    color: #d6ae62; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #081635;
+  font-family: "Oswald", sans-serif; }
+
+h1, h2, h3 {
+  font-weight: 600; }
+
+h4, h5, h6 {
+  font-weight: 600; }
+
+h1 {
+  font-size: 30px;
+  line-height: 37.5px;
+  margin-bottom: 6.25px; }
+
+h2 {
+  font-size: 20px;
+  line-height: 30px; }
+
+h3 {
+  font-size: 20px; }
+
+h4 {
+  font-size: 18px;
+  font-weight: normal; }
+
+h5 {
+  font-size: 18px; }
+
+h6 {
+  font-size: 18px; }

@@ -1,0 +1,106 @@
+/*---------------------------------------------- TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+
+1. General
+
+*/
+
+/* Imports all variables and mixins */
+@import 'engine';
+
+header {
+	border-bottom: 4px solid $menu-border-color;
+	background-color: $menu-color;
+}
+
+.logo {
+	@include column(2);
+	height: $line-height*3;
+	padding-top: round($line-height/2);
+	padding-bottom: round($line-height/2);
+
+	img {
+		transition: .5s ease all;
+		
+		&:hover {
+		transform: rotate(6deg);
+		}
+	}
+}
+
+// MAIN MENU
+.main-menu {
+	@include column(10);
+
+	ul {
+		text-align: right;
+		padding-top: round($line-height*1.5);
+		li {
+			display: inline-block;
+			padding: 0 round($gutter/2);
+			&:last-child {
+				padding-right: 0;
+			}
+
+			a {
+				font-family: $menu-font;
+				color: $menu-font-color;
+				text-transform: uppercase;
+				font-size: smaller;
+				border-bottom: 3px solid transparent;
+				transition: .5s ease all;
+				&:hover {
+					border-color: $menu-font-color;
+					color: $menu-font-color;
+					text-decoration: none;
+				}
+			}
+		}
+
+		.selected, .is-parent {
+			a {
+				border-color: $yellow;
+				color: $yellow;
+			}
+		}
+	}
+}
+
+// TOP MENU
+.top {
+	background-color: $menu-font-color;
+
+	ul {
+		@include column(12);
+		text-align: right;
+		li {
+			display: inline-block;
+			padding: 0 round($gutter/8);
+			
+			&:last-child  {
+				padding-right: 0;
+			}
+
+			a {
+				
+				font-family: $menu-font;
+				color: $link-color;
+				@include font-size(round($p * 0.5));
+				border-bottom: 2px solid transparent;
+				transition: .5s ease all;
+				&:hover {
+					border-bottom-color: lighten($yellow, 10);
+					color: lighten($yellow, 10);
+					text-decoration: none;
+				}
+			}
+		}
+
+		.selected, .is-parent {
+			a {
+				border-bottom-color: lighten($yellow, 10);
+				color: lighten($yellow, 10);
+			}
+		}
+	}
+}

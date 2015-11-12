@@ -1,0 +1,79 @@
+/*---------------------------------------------- TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+
+1. General
+
+*/
+
+/* Imports all variables and mixins */
+@import 'engine';
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+#wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+main {
+	width: 100%;
+	flex: 1;
+}
+
+.wrap {
+	@include wrapper();
+}
+
+footer {
+	background-color: $footer-color;
+	color: $footer-font-color;
+	a {
+		color: $footer-font-color;
+		font-family: $menu-font;
+		font-size: small;
+	}
+	span {	
+		display: block;
+		text-align: center;
+		margin: $line-height auto;
+	}
+}
+
+// PAGE HEADER
+.pageheader {
+	background-color: $primary-color;
+
+	h1 {
+		@include font-size($h1*2);
+		line-height: $line-height*4;
+		font-family: 'Montserrat', sans-serif;
+		text-transform: uppercase;
+		color: #fff;
+		@include wrapper();
+	}
+
+
+}
+
+// ELEMENTS
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	width: auto;
+}
+
+.slideshow {
+	img {
+		width: 100%;
+	}
+}
+

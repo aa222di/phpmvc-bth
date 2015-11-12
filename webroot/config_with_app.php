@@ -8,5 +8,5 @@
 require __DIR__.'/config.php'; 
 
 // Create services and inject into the app. 
-$di  = new \Anax\DI\CDIFactoryDefault();
-$app = new \Anax\Kernel\CAnax($di);
+$di  = new \Anax\DI\CDIFactoryExtended();
+$app = new \Anax\MVC\CApplicationBasic($di);

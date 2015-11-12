@@ -1,0 +1,82 @@
+/*---------------------------------------------- VARIABLES - TABLE OF CONTENTS ---------------------------------------------------*/
+/* Shall contain all fundamental variables for stylesheets
+
+1. TYPOGRAPHY - Colors, sizes, weight and font families
+2. GRID - Sitewidth, columns and contentwidth
+3. COLORS
+4. HEADER
+*/
+
+// COLORS
+$yellow: #d6ae62;
+$darkblue: #081635;
+$darkgrey: #444;
+
+/*---------------------------------------------- TYPOGRAPHY VALUES ---------------------------------------------------*/
+/* Here is where you set your font-families and your body font-size. The rest of the typography adjusts itself to this value based on the Golden Ratio.
+This generates a base which is seated on the same baseline. In case you wan't to change individual H1-H6 etc. You have to do that in typography.scss or
+better yet - override the styles in another document. */
+
+
+$body-font:  'Josefin Slab', serif;
+$heading-font: 'Oswald', sans-serif;
+
+/* FONT SIZE */
+$body-font-size: 18;
+$line-height: round(($body-font-size * 1.4px) / 1);
+
+/* FONT COLOR */
+$body-font-color:       $darkgrey;
+$heading-font-color:	$darkblue;
+
+/* FONT WEIGHT */
+$body-font-weight:		300;
+$heading-font-weight13:	600;
+$heading-font-weight46:	600;
+
+/* VARIABLES BASED ON THE GOLDEN RATIO  */
+/* Here is where you set font-sizes individually if you like. Divide pixelvalue by then like so h1 = 16/10 */
+$p: $body-font-size / 10;
+$h2: round($p * 1.309);
+$h1: round($h2 * 1.309);
+$h3: round($h2 * (1.618 / 2));
+
+/* LINKS */
+$link-color: $yellow;
+
+/*---------------------------------------------- GRID VALUES ---------------------------------------------------*/
+
+$sitewidth: 100%;
+$contentwidth: $sitewidth*0.80;
+$columns: 12;
+$gutter: $line-height*2;
+
+
+/*---------------------------------------------- COLOR VALUES ---------------------------------------------------*/
+/* GENERAL */
+$primary-color: $darkblue;
+$secondary-color: #ddd;
+
+$background-color: #fff;
+
+/* NAVIGATION */
+$menu-font: 'Montserrat', sans-serif;
+$menu-color: #fff;
+$menu-font-color: $darkblue;
+$menu-border-color: $darkblue;
+
+$dropdown-backgroundcolor: $primary-color;
+$dropdown-fontcolor: #fff;
+$hover-color: #fff;
+
+$topnav-backgroundcolor: darken($primary-color, 10);
+$topnav-fontcolor: #fff;
+
+$submenu-backgroundcolor: $topnav-backgroundcolor;
+$submenu-fontcolor: $topnav-fontcolor;
+
+/* FOOTER */
+
+$footer-color: $primary-color;
+$footer-font-color: lighten($primary-color, 20);
+

@@ -1,0 +1,154 @@
+/*---------------------------------------------- TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+
+1. General
+
+*/
+/* Imports all variables and mixins */
+/*---------------------------------------------- ENGINE ---------------------------------------------------*/
+/* Shall be included in all files - contains fundamental variables, mixins and the gridsystem */
+/*---------------------------------------------- VARIABLES - TABLE OF CONTENTS ---------------------------------------------------*/
+/* Shall contain all fundamental variables for stylesheets
+
+1. TYPOGRAPHY - Colors, sizes, weight and font families
+2. GRID - Sitewidth, columns and contentwidth
+3. COLORS
+4. HEADER
+*/
+/*---------------------------------------------- TYPOGRAPHY VALUES ---------------------------------------------------*/
+/* Here is where you set your font-families and your body font-size. The rest of the typography adjusts itself to this value based on the Golden Ratio.
+This generates a base which is seated on the same baseline. In case you wan't to change individual H1-H6 etc. You have to do that in typography.scss or
+better yet - override the styles in another document. */
+/* FONT SIZE */
+/* FONT COLOR */
+/* FONT WEIGHT */
+/* VARIABLES BASED ON THE GOLDEN RATIO  */
+/* Here is where you set font-sizes individually if you like. Divide pixelvalue by then like so h1 = 16/10 */
+/* LINKS */
+/*---------------------------------------------- GRID VALUES ---------------------------------------------------*/
+/*---------------------------------------------- COLOR VALUES ---------------------------------------------------*/
+/* GENERAL */
+/* NAVIGATION */
+/* FOOTER */
+/* ----------------------------------------------------- MIXINS - TABLE OF CONTENT ----------------------------------------------------- */
+/*
+1. TYPOGRAPHY MIXINS
+2. BUTTONS
+*/
+/* ----------------------------------------------------- TYPOGRAPHY MIXINS ----------------------------------------------------- */
+/* Calculates font size in rem and px  for browser compatability */
+/* Sets h1 on baseline */
+/* ----------------------------------------------------- BUTTONS ----------------------------------------------------- */
+/* Creates button */
+/* ----------------------------------------------------- RESPONSIVE MENU ----------------------------------------------------- */
+/*---------------------------------------------- GRID - TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+1. COLUMN
+2. CENTERCOLUMN
+3. WRAPPER
+4. CLEARFIX
+
+*/
+/* Set columnspan for layout */
+/* Center a column which is alone in its' row */
+/* Set columnspan for layout */
+/* Wrap elements and center on page */
+/* Wrap elements and center on page: This mixin is used to center content like texts on very wide pages*/
+/* Wrap elements with custom padding */
+header {
+  border-bottom: 4px solid #081635;
+  background-color: #fff; }
+
+.logo {
+  display: block;
+  float: left;
+  width: 16.66667%;
+  padding: 0 25px;
+  height: 75px;
+  padding-top: 13px;
+  padding-bottom: 13px; }
+  @media (max-width: 1023px) {
+    .logo {
+      padding: 0 13px; } }
+  @media (max-width: 900px) {
+    .logo {
+      min-width: 100%;
+      margin-left: 0;
+      margin-right: 0; } }
+  .logo img {
+    transition: .5s ease all; }
+    .logo img:hover {
+      -webkit-transform: rotate(6deg);
+          -ms-transform: rotate(6deg);
+              transform: rotate(6deg); }
+
+.main-menu {
+  display: block;
+  float: left;
+  width: 83.33333%;
+  padding: 0 25px; }
+  @media (max-width: 1023px) {
+    .main-menu {
+      padding: 0 13px; } }
+  @media (max-width: 900px) {
+    .main-menu {
+      min-width: 100%;
+      margin-left: 0;
+      margin-right: 0; } }
+  .main-menu ul {
+    text-align: right;
+    padding-top: 38px; }
+    .main-menu ul li {
+      display: inline-block;
+      padding: 0 25px; }
+      .main-menu ul li:last-child {
+        padding-right: 0; }
+      .main-menu ul li a {
+        font-family: "Montserrat", sans-serif;
+        color: #081635;
+        text-transform: uppercase;
+        font-size: smaller;
+        border-bottom: 3px solid transparent;
+        transition: .5s ease all; }
+        .main-menu ul li a:hover {
+          border-color: #081635;
+          color: #081635;
+          text-decoration: none; }
+    .main-menu ul .selected a, .main-menu ul .is-parent a {
+      border-color: #d6ae62;
+      color: #d6ae62; }
+
+.top {
+  background-color: #081635; }
+  .top ul {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 0 25px;
+    text-align: right; }
+    @media (max-width: 1023px) {
+      .top ul {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .top ul {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+    .top ul li {
+      display: inline-block;
+      padding: 0 6px; }
+      .top ul li:last-child {
+        padding-right: 0; }
+      .top ul li a {
+        font-family: "Montserrat", sans-serif;
+        color: #d6ae62;
+        font-size: 10px;
+        border-bottom: 2px solid transparent;
+        transition: .5s ease all; }
+        .top ul li a:hover {
+          border-bottom-color: #e1c38a;
+          color: #e1c38a;
+          text-decoration: none; }
+    .top ul .selected a, .top ul .is-parent a {
+      border-bottom-color: #e1c38a;
+      color: #e1c38a; }

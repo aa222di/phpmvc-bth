@@ -1,0 +1,137 @@
+/*---------------------------------------------- TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+
+1. General
+
+*/
+/* Imports all variables and mixins */
+/*---------------------------------------------- ENGINE ---------------------------------------------------*/
+/* Shall be included in all files - contains fundamental variables, mixins and the gridsystem */
+/*---------------------------------------------- VARIABLES - TABLE OF CONTENTS ---------------------------------------------------*/
+/* Shall contain all fundamental variables for stylesheets
+
+1. TYPOGRAPHY - Colors, sizes, weight and font families
+2. GRID - Sitewidth, columns and contentwidth
+3. COLORS
+4. HEADER
+*/
+/*---------------------------------------------- TYPOGRAPHY VALUES ---------------------------------------------------*/
+/* Here is where you set your font-families and your body font-size. The rest of the typography adjusts itself to this value based on the Golden Ratio.
+This generates a base which is seated on the same baseline. In case you wan't to change individual H1-H6 etc. You have to do that in typography.scss or
+better yet - override the styles in another document. */
+/* FONT SIZE */
+/* FONT COLOR */
+/* FONT WEIGHT */
+/* VARIABLES BASED ON THE GOLDEN RATIO  */
+/* Here is where you set font-sizes individually if you like. Divide pixelvalue by then like so h1 = 16/10 */
+/* LINKS */
+/*---------------------------------------------- GRID VALUES ---------------------------------------------------*/
+/*---------------------------------------------- COLOR VALUES ---------------------------------------------------*/
+/* GENERAL */
+/* NAVIGATION */
+/* FOOTER */
+/* ----------------------------------------------------- MIXINS - TABLE OF CONTENT ----------------------------------------------------- */
+/*
+1. TYPOGRAPHY MIXINS
+2. BUTTONS
+*/
+/* ----------------------------------------------------- TYPOGRAPHY MIXINS ----------------------------------------------------- */
+/* Calculates font size in rem and px  for browser compatability */
+/* Sets h1 on baseline */
+/* ----------------------------------------------------- BUTTONS ----------------------------------------------------- */
+/* Creates button */
+/* ----------------------------------------------------- RESPONSIVE MENU ----------------------------------------------------- */
+/*---------------------------------------------- GRID - TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+1. COLUMN
+2. CENTERCOLUMN
+3. WRAPPER
+4. CLEARFIX
+
+*/
+/* Set columnspan for layout */
+/* Center a column which is alone in its' row */
+/* Set columnspan for layout */
+/* Wrap elements and center on page */
+/* Wrap elements and center on page: This mixin is used to center content like texts on very wide pages*/
+/* Wrap elements with custom padding */
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body {
+  margin: 0; }
+
+#wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh; }
+
+main {
+  width: 100%;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }
+
+.wrap {
+  margin: 0 auto;
+  max-width: 80%;
+  *zoom: 1; }
+  .wrap:before, .wrap:after {
+    content: "";
+    display: table; }
+  .wrap:after {
+    clear: both; }
+  @media (max-width: 1480px) {
+    .wrap {
+      max-width: 95%; } }
+  @media (max-width: 1023px) {
+    .wrap {
+      max-width: 98%; } }
+
+footer {
+  background-color: #081635;
+  color: #153b8e; }
+  footer a {
+    color: #153b8e;
+    font-family: "Montserrat", sans-serif;
+    font-size: small; }
+  footer span {
+    display: block;
+    text-align: center;
+    margin: 25px auto; }
+
+.pageheader {
+  background-color: #081635; }
+  .pageheader h1 {
+    font-size: 60px;
+    line-height: 100px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 auto;
+    max-width: 80%;
+    *zoom: 1; }
+    .pageheader h1:before, .pageheader h1:after {
+      content: "";
+      display: table; }
+    .pageheader h1:after {
+      clear: both; }
+    @media (max-width: 1480px) {
+      .pageheader h1 {
+        max-width: 95%; } }
+    @media (max-width: 1023px) {
+      .pageheader h1 {
+        max-width: 98%; } }
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto; }
+
+.slideshow img {
+  width: 100%; }

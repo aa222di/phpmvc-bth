@@ -1,0 +1,98 @@
+/*---------------------------------------------- GRID - TABLE OF CONTENTS ---------------------------------------------------*/
+/*
+1. COLUMN
+2. CENTERCOLUMN
+3. WRAPPER
+4. CLEARFIX
+
+*/
+
+/* Set columnspan for layout */
+@mixin column($columnspan, $float: left ) {
+
+    display: block;
+	float: $float;
+	width: $columnspan*(100%/$columns);
+	padding: 0 round($gutter/2) * 1;
+  @media (max-width: 1023px) {
+    padding: 0 round($gutter/4) * 1;
+  }
+  @media (max-width: 900px) {
+    min-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+}
+
+/* Center a column which is alone in its' row */
+@mixin centercolumn($columnspan) {
+
+  display: block;
+  margin: 0 auto;
+  width: $columnspan*(100%/$columns);
+  padding: 0 round($gutter/2) * 1;
+  @media (max-width: 900px) {
+    min-width: 100%;
+  }
+}
+
+/* Set columnspan for layout */
+@mixin columnfix($columnspan, $gutterdivide:2, $float: left ) {
+  display: block;
+  float: $float;
+  width: $columnspan*(100%/$columns);
+  padding: 0 round($gutter/$gutterdivide) * 1;
+}
+
+/* Wrap elements and center on page */
+@mixin wrapper() {
+	margin: 0 auto;
+	max-width: $contentwidth;
+	@include clearfix();
+
+    @media (max-width: 1480px) {
+    max-width: 95%;
+  }
+  @media (max-width: 1023px) {
+    max-width: 98%;
+  }
+
+}
+
+/* Wrap elements and center on page: This mixin is used to center content like texts on very wide pages*/
+@mixin contentwrapper() {
+  margin: 0 auto;
+  max-width: 56em;
+  @include clearfix();
+  padding: 0 round($gutter/2) * 1;
+  @media (max-width: 1023px) {
+    padding: 0 round($gutter/4) * 1;
+  }
+  @media (max-width: 900px) {
+   max-width: 98%;
+
+  }
+}
+
+/* Wrap elements with custom padding */
+@mixin rowwrap($padding:0) {
+  display: block;
+  width: 100%;
+  padding: $padding;
+  @include clearfix();
+}
+
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+@mixin clearfix() {
+	*zoom:1;
+	
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}

@@ -1,0 +1,25 @@
+{
+  "name": "eden-workflow",
+  "version": "1.0.0",
+  "description": "First attempt to merge eden with novitell workflow",
+  "main": "none",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "eden-responsive"
+  },
+  "keywords": [
+    "sass"
+  ],
+  "author": "Amanda Marie Åberg",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-ruby-sass": "^1.0.1",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-concat": "^2.5.2"
+  }
+}
