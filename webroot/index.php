@@ -58,76 +58,14 @@ $app->router->add('login', function() use ($app) {
 // Register page 
 $app->router->add('register', function() use ($app) {
 	
-
-	    $form = $app->form->create([], [
-        'acronym' => [
-            'type'        => 'text',
-            'label'       => 'Användarnamn',
-            'required'    => true,
-            'validation'  => ['not_empty'],
-        ],
-        'password' => [
-            'type'        => 'password',
-            'label'       => 'Lösenord',
-            'required'    => true,
-            'validation'  => ['not_empty'],
-        ],
-        'pwd-repeat' => [
-            'type'        => 'password',
-            'label'       => 'Repetera lösenord',
-            'required'    => true,
-             'validation' => [
-                'match' => 'password'
-            ],
-        ],
-        'email' => [
-            'type'        => 'text',
-            'required'    => true,
-            'validation'  => ['not_empty', 'email_adress'],
-        ],
-        'submit' => [
-            'type'      => 'submit',
-            'callback'  => function ($form) {
-                $form->AddOutput("<p><i>DoSubmit(): Form was submitted. Do stuff (save to database) and return true (success) or false (failed processing form)</i></p>");
-                $form->AddOutput("<p><b>Name: " . $form->Value('acronym') . "</b></p>");
-                $form->AddOutput("<p><b>Email: " . $form->Value('email') . "</b></p>");
-                $form->saveInSession = true;
-                return true;
-            }
-        ],
-        'submit-fail' => [
-            'type'      => 'submit',
-            'callback'  => function ($form) {
-                $form->AddOutput("<p><i>DoSubmitFail(): Form was submitted but I failed to process/save/validate it</i></p>");
-                return false;
-            }
-        ],
-    ]);
-
-    // Check the status of the form
-	$form->check(
-	    function ($form) use ($app) {
-	 
-	        // What to do if the form was submitted?
-	        $form->AddOUtput("<p><i>Form was submitted and the callback method returned true.</i></p>");
-	        $app->redirectTo();
-	 
-	    },
-	    function ($form) use ($app) {
-	 
-	        // What to do when form could not be processed?
-	        $form->AddOutput("<p><i>Form was submitted and the Check() method returned false.</i></p>");
-	        $app->redirectTo();
-	 
-	    }
-	);
+	$form = $app->UserController->registerAction();
 
 	// Prepare the page content
 	$app->theme->setVariable('title', "Registrera ny användare")
 			   ->setVariable('pageheader', "<div class='pageheader'><h1>Registrera ny användare</h1></div>")
 	           ->setVariable('main', "
 		    <h1>Register</h1>
-		    <p>" . $form->getHTML() . "</p>
+		    <p>" . $form . "</p>
 		");
  
 });

@@ -22,10 +22,17 @@ class CDIFactoryExtended extends CDIFactoryDefault
 
         // Create extra navbar for top menu
         $this->setShared('topnav', function () {
-        $navbar = new \Anax\Navigation\CNavbar();
-        $navbar->setDI($this);
-        $navbar->configure(ANAX_APP_PATH . 'config/topnav.php');
-        return $navbar;
+            $navbar = new \Anax\Navigation\CNavbar();
+            $navbar->setDI($this);
+            $navbar->configure(ANAX_APP_PATH . 'config/topnav.php');
+            return $navbar;
+        });
+
+        // Add UserController to framework
+        $this->set('UserController', function() {
+            $controller = new \Anax\User\UserController();
+            $controller->setDI($this);
+            return $controller;
         });
     }
 

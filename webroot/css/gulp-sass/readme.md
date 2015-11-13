@@ -1,4 +1,4 @@
-# 1:NextGen2 Sass Project
+# 1:Toeswade Sass Project
 
 Front-end file package to manage stylesheets for the NextGen platform. Comes with its' own gridsystem and functions ready to use.
 
