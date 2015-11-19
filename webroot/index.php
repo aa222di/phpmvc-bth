@@ -14,7 +14,89 @@ $app->url->setUrlType(\Anax\Url\CUrl::URL_CLEAN);
 $app->theme->configure(ANAX_APP_PATH . 'config/theme_aab.php');
 $app->navbar->configure(ANAX_APP_PATH . 'config/navbar_aab.php');
 
+if($app->session->has(\Anax\User\User::$loginSession)) {
+	$app->topnav->configure(ANAX_APP_PATH . 'config/topnav_logout.php');
+}
 
+//echo $app->session->get('');
+//echo \Anax\User\User::$loginSession;
+//var_dump($_SESSION);
+
+// Set up db
+$app->router->add('setup-u', function() use ($app) {
+    //$app->db->setVerbose();
+ 
+    $app->db->dropTableIfExists('user')->execute();
+ 
+    $app->db->createTable(
+        'user',
+        [
+            'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
+            'acronym' => ['varchar(20)', 'unique', 'not null'],
+            'email' => ['varchar(80)'],
+            'password' => ['varchar(255)'],
+        ]
+    )->execute();
+
+    $app->db->insert(
+        'user',
+        ['acronym', 'email', 'password']
+    );
+ 
+    $now = gmdate('Y-m-d H:i:s');
+ 
+    $app->db->execute([
+        'admin',
+        'admin@dbwebb.se',
+        password_hash('admin', PASSWORD_DEFAULT)
+    ]);
+ 
+    $app->db->execute([
+        'doe',
+        'doe@dbwebb.se',
+        password_hash('doe', PASSWORD_DEFAULT)
+    ]);
+});
+
+$app->router->add('setup-q', function() use ($app) {
+    //$app->db->setVerbose();
+ 
+    $app->db->dropTableIfExists('questions')->execute();
+ 
+    $app->db->createTable(
+        'questions',
+        [
+            'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
+            'userId' => ['integer', 'not null'],
+            'subject' => ['char(255)'],
+            'text' => ['text'],
+            'created' => ['datetime'],
+            'updated' => ['datetime'],
+            'deleted' => ['datetime'],
+        ]
+    )->execute();
+
+    $app->db->insert(
+        'questions',
+        ['userId', 'subject', 'text', 'created']
+    );
+ 
+    $now = gmdate('Y-m-d H:i:s');
+ 
+    $app->db->execute([
+        '1',
+        'Rubrik 1',
+        'Test, fråga ett',
+        $now
+    ]);
+ 
+    $app->db->execute([
+        '1',
+        'Rubrik 2',
+        'test fråga två',
+        $now
+    ]);
+});
 
 // Get pages
  
@@ -44,14 +126,28 @@ $app->router->add('', function() use ($app) {
 // Login page 
 $app->router->add('login', function() use ($app) {
 	
+	$form = $app->UserController->loginAction();
 	// Prepare the page content
 	$app->theme->setVariable('title', "Logga in")
 			   ->setVariable('pageheader', "<div class='pageheader'><h1>Logga in</h1></div>")
 	           ->setVariable('main', "
 		    <h1>Logga in</h1>
-		    <p>All about burgers</p>
-		");
- 
+		    <p>" . $form . "</p>
+		"); 
+});
+
+// Logout page 
+$app->router->add('logout', function() use ($app) {
+	
+	$app->UserController->logoutAction();
+	$form = $app->UserController->loginAction();
+	// Prepare the page content
+	$app->theme->setVariable('title', "Utloggad")
+			   ->setVariable('pageheader', "<div class='pageheader'><h1>Utloggad</h1></div>")
+	           ->setVariable('main', "
+		    <h1>Logga in</h1>
+		    <p>" . $form . "</p>
+		"); 
 });
 
 

@@ -17,6 +17,18 @@ class CDIFactoryExtended extends CDIFactoryDefault
     {
         parent::__construct();
 
+        // Add CDatabase to framework
+        $this->setShared('db', function() {
+            $db = new \Mos\Database\CDatabaseBasic();
+                // LOCALp
+            $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql.php');
+                // BTH
+            // $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql_bth.php');
+            
+            $db->connect();
+            return $db;
+        });
+
         // Add CForm to framework
         $this->set('form', '\Mos\HTMLForm\CForm');
 

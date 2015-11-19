@@ -84,7 +84,6 @@ class CSession
     }
 
 
-
     /**
      * Check if a value is set in the session.
      *

@@ -4,7 +4,7 @@ namespace Anax\User;
  * Anax base class for wrapping sessions.
  *
  */
-class CRegisterForm extends \Mos\HTMLForm\CForm
+class CLoginForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,
         \Anax\MVC\TRedirectHelpers;
@@ -27,27 +27,14 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
             'required'    => true,
             'validation'  => ['not_empty'],
         ],
-        'pwd-repeat' => [
-            'type'        => 'password',
-            'label'       => 'Repetera lösenord',
-            'required'    => true,
-             'validation' => [
-                'match' => 'password'
-            ],
-        ],
-        'email' => [
-            'type'        => 'text',
-            'required'    => true,
-            'validation'  => ['not_empty', 'email_adress'],
-        ],
         'submit' => [
             'type'      => 'submit',
             'callback'  => function() {
 
                 $res = $this->di->dispatcher->forward([
                     'controller' => 'user',
-                    'action'     => 'add',
-                    'params'     => [$this->Value('acronym'), $this->Value('password'), $this->Value('email')]
+                    'action'     => 'login',
+                    'params'     => [true ,$this->Value('acronym'), $this->Value('password')]
                 ]);
 
                 $this->saveInSession = true;
@@ -63,9 +50,5 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
         ],
     ]);
 
-    }
-
-    public function getAcronym() {
-        return $this->Value('acronym');
     }
 }
