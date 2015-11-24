@@ -16,41 +16,27 @@ class User extends \Anax\MVC\CDatabaseModel
  */
 public function setup()
 {
-	$this->db->dropTableIfExists('user')->execute();
+    $this->db->dropTableIfExists('user')->execute();
     $this->db->createTable(
         'user',
         [
             'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
             'acronym' => ['varchar(20)', 'unique', 'not null'],
             'email' => ['varchar(80)'],
-            'name' => ['varchar(80)'],
             'password' => ['varchar(255)'],
-            'created' => ['datetime'],
-            'updated' => ['datetime'],
-            'deleted' => ['datetime'],
-            'active' => ['datetime'],
         ]
     )->execute();
-
-    // Insert two default users
-    $now = date(DATE_RFC2822);
-
+ 
     $this->create([
         'acronym' => 'admin',
         'email' => 'admin@dbwebb.se',
-        'name' => 'Administrator',
-        'password' => password_hash('admin', PASSWORD_DEFAULT),
-        'created' => $now,
-        'active' => $now,
+        'password' => password_hash('admin', PASSWORD_DEFAULT)
     ]);
-
+ 
     $this->create([
         'acronym' => 'doe',
         'email' => 'doe@dbwebb.se',
-        'name' => 'John/Jane Doe',
-        'password' => password_hash('doe', PASSWORD_DEFAULT),
-        'created' => $now,
-        'active' => $now,
+        'password' => password_hash('doe', PASSWORD_DEFAULT)
     ]);
 
 }
@@ -71,7 +57,7 @@ public function setup()
 
         if($res) {
             if(password_verify($password, $res->password)) {
-                $this->session->set(self::$loginSession, $acronym);
+                $this->session->set(self::$loginSession, $res->id);
                 return true;
             }
             else {
@@ -92,6 +78,32 @@ public function setup()
     public function logout()
     {
         unset($_SESSION[self::$loginSession]);
+    }
+
+
+    /**
+     * Get currently logged in user
+     *
+     * @return obj User
+     */
+    public function getLoggedInUser()
+    {
+        if($this->isUserLoggedIn()) {
+            $id = $this->session->get(self::$loginSession);
+            $user = $this->find($id);
+            return $user;
+        }
+    }
+
+
+    /**
+     * Is user logged in
+     *
+     * @return boolean
+     */
+    public function isUserLoggedIn()
+    {
+        return $this->session->has(self::$loginSession);
     }
 
 

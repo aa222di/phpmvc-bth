@@ -23,79 +23,19 @@ if($app->session->has(\Anax\User\User::$loginSession)) {
 //var_dump($_SESSION);
 
 // Set up db
-$app->router->add('setup-u', function() use ($app) {
-    //$app->db->setVerbose();
- 
-    $app->db->dropTableIfExists('user')->execute();
- 
-    $app->db->createTable(
-        'user',
-        [
-            'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
-            'acronym' => ['varchar(20)', 'unique', 'not null'],
-            'email' => ['varchar(80)'],
-            'password' => ['varchar(255)'],
-        ]
-    )->execute();
-
-    $app->db->insert(
-        'user',
-        ['acronym', 'email', 'password']
-    );
- 
-    $now = gmdate('Y-m-d H:i:s');
- 
-    $app->db->execute([
-        'admin',
-        'admin@dbwebb.se',
-        password_hash('admin', PASSWORD_DEFAULT)
-    ]);
- 
-    $app->db->execute([
-        'doe',
-        'doe@dbwebb.se',
-        password_hash('doe', PASSWORD_DEFAULT)
-    ]);
+$app->router->add('setup-u', function() use ($app) { 
+    $app->UserController->setupAction();
+    $app->UserController->listAction();
 });
 
 $app->router->add('setup-q', function() use ($app) {
-    //$app->db->setVerbose();
- 
-    $app->db->dropTableIfExists('questions')->execute();
- 
-    $app->db->createTable(
-        'questions',
-        [
-            'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
-            'userId' => ['integer', 'not null'],
-            'subject' => ['char(255)'],
-            'text' => ['text'],
-            'created' => ['datetime'],
-            'updated' => ['datetime'],
-            'deleted' => ['datetime'],
-        ]
-    )->execute();
+    $app->QuestionsController->setupAction();
+    $app->QuestionsController->listAction();
+});
 
-    $app->db->insert(
-        'questions',
-        ['userId', 'subject', 'text', 'created']
-    );
- 
-    $now = gmdate('Y-m-d H:i:s');
- 
-    $app->db->execute([
-        '1',
-        'Rubrik 1',
-        'Test, fråga ett',
-        $now
-    ]);
- 
-    $app->db->execute([
-        '1',
-        'Rubrik 2',
-        'test fråga två',
-        $now
-    ]);
+$app->router->add('setup-t', function() use ($app) {
+    $app->TagsController->setupAction();
+    $app->TagsController->listAction();
 });
 
 // Get pages
@@ -171,13 +111,7 @@ $app->router->add('register', function() use ($app) {
 // Questions page 
 $app->router->add('question', function() use ($app) {
 	
-	// Prepare the page content
-	$app->theme->setVariable('title', "Frågor")
-			   ->setVariable('pageheader', "<div class='pageheader'><h1>Frågor</h1></div>")
-	           ->setVariable('main', "
-		    <h1>Frågor</h1>
-		    <p>All about burgers</p>
-		");
+	$app->QuestionsController->listAction();
  
 });
 
@@ -185,13 +119,7 @@ $app->router->add('question', function() use ($app) {
 // Tag page 
 $app->router->add('tag', function() use ($app) {
 	
-	// Prepare the page content
-	$app->theme->setVariable('title', "Taggar")
-			   ->setVariable('pageheader', "<div class='pageheader'><h1>Taggar</h1></div>")
-	           ->setVariable('main', "
-		    <h1>Taggar</h1>
-		    <p>All about burgers</p>
-		");
+	$app->TagsController->listAction();
  
 });
 
@@ -199,13 +127,7 @@ $app->router->add('tag', function() use ($app) {
 // User page 
 $app->router->add('user', function() use ($app) {
 	
-	// Prepare the page content
-	$app->theme->setVariable('title', "Användare")
-			   ->setVariable('pageheader', "<div class='pageheader'><h1>Användare</h1></div>")
-	           ->setVariable('main', "
-		    <h1>Användare</h1>
-		    <p>All about burgers</p>
-		");
+	$app->UserController->listAction();
  
 });
 

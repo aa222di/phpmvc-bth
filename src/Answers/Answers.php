@@ -1,11 +1,11 @@
 <?php
-namespace Anax\Questions;
+namespace Anax\Answers;
  
 /**
  * Model for Users.
  *
  */
-class Questions extends \Anax\MVC\CDatabaseModel
+class Answers extends \Anax\MVC\CDatabaseModel
 {
 
      /**
@@ -15,14 +15,14 @@ class Questions extends \Anax\MVC\CDatabaseModel
      */
     public function setup()
     {
-        $this->db->dropTableIfExists('questions')->execute();
+        $this->db->dropTableIfExists('answers')->execute();
  
         $this->db->createTable(
-            'questions',
+            'answers',
             [
                 'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
                 'userId' => ['integer', 'not null'],
-                'subject' => ['char(255)'],
+                'questionId' => ['integer', 'not null'],
                 'text' => ['text'],
                 'created' => ['datetime'],
                 'updated' => ['datetime'],
@@ -34,18 +34,27 @@ class Questions extends \Anax\MVC\CDatabaseModel
         $now = gmdate('Y-m-d H:i:s');
      
         $this->create([
-            'userId' => '1',
-            'subject' => 'Rubrik 1',
-            'text' => 'Test, fråga ett',
+            'userId' => '2',
+            'questionId' => '1',
+            'text' => 'Svar på fråga ett',
             'created' => $now
         ]);
      
         $this->create([
-            'userId' => '1',
-            'subject' => 'Rubrik 2',
-            'text' => 'test fråga två',
+            'userId' => '2',
+            'questionId' => '2',
+            'text' => 'Svar på fråga två',
             'created' => $now
         ]);
 
+    }
+
+    public function getAnswersforQuestion($id) {
+           $this->db->select()
+             ->from($this->getSource())
+             ->where("questionId = ?");
+            $this->db->execute([$id]);
+            $this->db->setFetchModeClass(__CLASS__);
+            return $this->db->fetchAll();
     }
 }

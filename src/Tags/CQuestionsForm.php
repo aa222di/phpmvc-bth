@@ -1,10 +1,10 @@
 <?php
-namespace Anax\User;
+namespace Anax\Tags;
 /**
  * Anax base class for wrapping sessions.
  *
  */
-class CLoginForm extends \Mos\HTMLForm\CForm
+class CQuestionsForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,
         \Anax\MVC\TRedirectHelpers;
@@ -15,15 +15,15 @@ class CLoginForm extends \Mos\HTMLForm\CForm
     public function __construct()
     {
         parent::__construct([], [
-        'acronym' => [
+        'subject' => [
             'type'        => 'text',
-            'label'       => 'Användarnamn',
+            'label'       => 'Rubrik',
             'required'    => true,
             'validation'  => ['not_empty'],
         ],
-        'password' => [
-            'type'        => 'password',
-            'label'       => 'Lösenord',
+        'text' => [
+            'type'        => 'textarea',
+            'label'       => 'Fråga',
             'required'    => true,
             'validation'  => ['not_empty'],
         ],
@@ -32,9 +32,9 @@ class CLoginForm extends \Mos\HTMLForm\CForm
             'callback'  => function() {
 
                 $res = $this->di->dispatcher->forward([
-                    'controller' => 'user',
-                    'action'     => 'login',
-                    'params'     => [true ,$this->Value('acronym'), $this->Value('password')]
+                    'controller' => 'questions',
+                    'action'     => 'add',
+                    'params'     => [$this->Value('subject'), $this->Value('text')]
                 ]);
 
                 $this->saveInSession = true;

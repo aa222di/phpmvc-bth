@@ -1,16 +1,16 @@
 <?php
 
-namespace Anax\Questions;
+namespace Anax\Answers;
  
 /**
  * A controller for users and admin related events.
  *
  */
-class QuestionsController extends \Anax\MVC\CControllerBasic
+class AnswersController extends \Anax\MVC\CControllerBasic
 {
 
     private $form;
-    private $questions;
+    private $answers;
 
     public function __construct() {
 
@@ -18,13 +18,11 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
     public function setup() {
 
-        $tags = $this->di->TagsController->getTags();
-
-        $this->form = new CQuestionsForm($tags);
-        $this->questions = new Questions();
+        $this->form = new CAnswersForm();
+        $this->answers = new Answers();
 
         $this->form->setDI($this->di);
-        $this->questions->setDI($this->di);
+        $this->answers->setDI($this->di);
         
     }
 
@@ -37,7 +35,7 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
      */
     public function setupAction()
     {
-       $this->questions->setup();
+       $this->answers->setup();
     }
 
 
@@ -49,13 +47,12 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
     public function listAction()
     {
      
-        $all = $this->questions->findAll();
+        $all = $this->answers->findAll();
      
-        $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>Alla frågor</h1></div>");
         $this->theme->setTitle("Alla frågor");
         $this->views->add('questions/list-all', [
             'questions' => $all,
-            'title' => "Alla nedan listas alla frågor",
+            'title' => "Alla frågor",
         ]);
     }
 
@@ -68,16 +65,12 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
      */
     public function idAction($id = null)
     {     
-        $question = $this->questions->find($id);
-        $answerForm = $this->AnswersController->getForm();
-        $answers = $this->AnswersController->getAnswers($id);
-        
-        $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>Frågor</h1></div>");
-        $this->theme->setTitle($question->id);
-        $this->views->add('questions/list-one', [
-            'question' => $question,
-            'form' => $answerForm,
-            'answers' => $answers
+        $user = $this->users->find($id);
+     
+        $this->theme->setTitle("View user with id");
+        $this->views->add('users/list-one', [
+            'title' => "View user with id " . $id ,
+            'user' => $user,
         ]);
     }
 
@@ -86,7 +79,7 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
      * Add new user.
      *
      */
-    public function createAction()
+    public function getForm()
     {
         if ($this->UserController->isUserLoggedIn()) {
             $status = $this->form->check();
@@ -98,23 +91,27 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
                 $this->callbackFail($this->form);
             }
 
-            // Prepare the page content
-            $this->theme->setVariable('title', "Skapa ny fråga")
-                        ->setVariable('pageheader', "<div class='pageheader'><h1>Lägg till ny fråga</h1></div>")
-                        ->setVariable('main', "
-                    <h1>Lägg till ny fråga</h1>"
-                    . $this->form->getHTML()
-            );
+             return $this->form->getHTML();
         }
         else {
-            // Prepare the page content
-            $this->theme->setVariable('title', "Skapa ny fråga")
-                        ->setVariable('pageheader', "<div class='pageheader'><h1>Lägg till ny fråga</h1></div>")
-                        ->setVariable('main', "
-                    <h1>Lägg till ny fråga</h1>
-                    <a href=" . $this->url->create('login') . ">Logga in för att kunna skriva frågor</a>" 
-            );
+            
+                $loginLink = "<a href=" . $this->url->create('login') . ">Logga in för att kunna svara på frågor</a>";
+                return $loginLink;
+          
         }
+
+    }
+
+        // Register
+    /**
+     * Get answers
+     *
+     */
+    public function getAnswers($id)
+    {
+        $res = $this->answers->getAnswersforQuestion($id);
+
+        return $res;   
 
     }
 

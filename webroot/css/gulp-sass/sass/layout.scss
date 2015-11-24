@@ -51,12 +51,14 @@ footer {
 	background-color: $primary-color;
 
 	h1 {
+
 		@include font-size($h1*2);
 		line-height: $line-height*4;
 		font-family: 'Montserrat', sans-serif;
 		text-transform: uppercase;
 		color: #fff;
 		@include wrapper();
+		@iclude column(12);
 	}
 
 
@@ -74,6 +76,129 @@ img {
 .slideshow {
 	img {
 		width: 100%;
+	}
+}
+
+// QUESTIONS
+
+	hr {
+		clear: both;
+		display: block;
+		padding-top: $line-height;
+		border: 0;
+		border-bottom: 2px dotted $primary-color;
+		margin: 0;
+	}
+
+.grid {
+	@include column(12);
+}
+
+.question {
+	@include rowwrap();
+	h3 {
+		margin: $line-height 0;
+		@include column(6);
+		padding-left: 0;
+	}
+	h6 {
+		margin: $line-height 0;
+		@include column(6);
+		padding-right: 0;
+		text-align: right;
+	}
+
+	article {
+		@include column(11);
+		padding-right: 0;
+	}
+
+	img {
+		@include column(1);
+		padding: 0;
+		border-radius: 50%;
+	}
+
+
+	.date {
+			font-size: smaller;
+			@include column(6);
+			padding-right: 0;
+			text-align: right;
+
+		}
+
+	.tags {
+		@include column(6);
+			padding-left: 0;
+		a {
+			font-size: smaller;
+			
+		}
+	}
+}
+
+.one-question {
+	.date {
+		@include column(4, right);
+		padding-right: 0;
+		text-align: right;
+	}
+
+	.tags {
+		@include column(6);
+			padding-left: 0;
+		a {
+			font-size: smaller;
+			
+		}
+	}
+
+	.user {
+		font-size: smaller;
+		@include column(6);
+		padding-right: 0;
+		text-align: right;
+	}
+}
+
+// FORMS 
+
+form {
+	clear: all;
+	border: none;
+	width: 100%;
+	padding: $line-height $line-height*2;
+	fieldset {
+	    border: 0;
+	    padding: 0;
+	    margin: 0;
+	    width: 100%;
+	}
+	input, textarea {
+		width: 100%;
+		border: 1px solid #ddd;
+		box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
+		border-radius: 6px;
+		padding: round($line-height/2);
+	}
+	input[type='submit'] {
+		font-family: $menu-font;
+		width: auto;
+		float: right;
+		background-color: $primary-color;
+		color: #fff;
+		padding: round($line-height/3) round($line-height/1);
+		box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+		&:hover {
+			background-color: $link-color;
+			box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
+			cursor: pointer;
+		}
+	}
+
+	textarea {
+		min-height: $line-height*5;
 	}
 }
 

@@ -14,7 +14,7 @@ return [
         // This is a menu item
         'question'  => [
             'text'  => 'Frågor',
-            'url'   => $this->di->get('url')->create('question'),
+            'url'   => $this->di->get('url')->create('questions/list'),
             'title' => 'Alla frågor',
             'mark-if-parent-of' => 'question',
         ],
@@ -22,7 +22,7 @@ return [
         // This is a menu item
         'tag' => [
             'text'  =>'Taggar',
-            'url'   => $this->di->get('url')->create('tag'),
+            'url'   => $this->di->get('url')->create('tags/list'),
             'title' => 'Alla taggar',
             'mark-if-parent-of' => 'tag'
         ],
@@ -30,7 +30,7 @@ return [
         // This is a menu item
         'user' => [
             'text'  =>'Användare',
-            'url'   => $this->di->get('url')->create('user'),
+            'url'   => $this->di->get('url')->create('user/list'),
             'title' => 'Alla användare',
             'mark-if-parent-of' => 'user'
         ],

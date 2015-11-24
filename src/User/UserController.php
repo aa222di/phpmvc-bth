@@ -29,8 +29,21 @@ class UserController extends \Anax\MVC\CControllerBasic
         $this->users->setDI($this->di);
     }
 
+
+
     /**
-     * List all users.
+     * Reset and setup database table
+     *
+     * @return void
+     */
+    public function setupAction()
+    {
+       $this->users->setup();
+    }
+
+
+    /**
+     * Login user
      *
      * @return void
      */
@@ -56,7 +69,7 @@ class UserController extends \Anax\MVC\CControllerBasic
     }
 
     /**
-     * List all users.
+     * Logout user
      *
      * @return void
      */
@@ -81,6 +94,40 @@ class UserController extends \Anax\MVC\CControllerBasic
             'users' => $all,
             'title' => "View all users",
         ]);
+    }
+
+    /**
+     * Get user with id or if no id - get current user.
+     *
+     * @param int $id of user to display
+     *
+     * @return obj User
+     */
+    public function getUserAction($id = null)
+    {     
+        if($id === null) {
+            $user = $this->users->getLoggedInUser();
+        }
+        elseif (is_numeric($id)) {
+            $user = $this->users->find($id);
+        }
+
+
+        return $user;
+    }
+
+    /**
+     * Check if a user is logged in
+     *
+     * @param int $id of user to display
+     *
+     * @return boolean
+     */
+    public function isUserLoggedIn()
+    {     
+        $res = $this->users->isUserLoggedIn();
+
+        return $res;
     }
 
     /**
@@ -120,6 +167,11 @@ class UserController extends \Anax\MVC\CControllerBasic
          return $this->registerForm->getHTML();
     }
 
+
+    /**
+     * Add new user.
+     *
+     */
     public function addAction($acronym, $password, $email)
     {
         try {

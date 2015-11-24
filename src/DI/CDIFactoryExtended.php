@@ -46,6 +46,31 @@ class CDIFactoryExtended extends CDIFactoryDefault
             $controller->setDI($this);
             return $controller;
         });
+
+        // Add QuestionsController to framework
+        $this->set('QuestionsController', function() {
+            $controller = new \Anax\Questions\QuestionsController();
+            $controller->setDI($this);
+            $controller->setup();
+            return $controller;
+        });
+
+        // Add AnswersController to framework
+        $this->set('AnswersController', function() {
+            $controller = new \Anax\Answers\AnswersController();
+            $controller->setDI($this);
+            $controller->setup();
+            return $controller;
+        });
+
+
+        // Add TagsController to framework
+        $this->set('TagsController', function() {
+            $controller = new \Anax\Tags\TagsController();
+            $controller->setDI($this);
+            $controller->setup();
+            return $controller;
+        });
     }
 
 }
