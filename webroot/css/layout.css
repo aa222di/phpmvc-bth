@@ -149,7 +149,8 @@ hr {
   display: block;
   float: left;
   width: 100%;
-  padding: 0 25px; }
+  padding: 0 25px;
+  margin-bottom: 50px; }
   @media (max-width: 1023px) {
     .grid {
       padding: 0 13px; } }
@@ -163,7 +164,8 @@ hr {
   display: block;
   width: 100%;
   padding: 0;
-  *zoom: 1; }
+  *zoom: 1;
+  margin-bottom: 50px; }
   .question:before, .question:after {
     content: "";
     display: table; }
@@ -214,7 +216,10 @@ hr {
         min-width: 100%;
         margin-left: 0;
         margin-right: 0; } }
+    .question article h1, .question article h2, .question article h3, .question article h4, .question article h5, .question article h6 {
+      font-family: "Josefin Slab", serif; }
   .question img {
+    clear: both;
     display: block;
     float: left;
     width: 8.33333%;
@@ -261,8 +266,11 @@ hr {
         margin-right: 0; } }
     .question .tags a {
       font-size: smaller; }
+  .question .number-answers {
+    font-size: smaller;
+    font-family: "Josefin Slab", serif; }
 
-.one-question .date {
+.one-question .main-question .date {
   display: block;
   float: right;
   width: 33.33333%;
@@ -270,30 +278,30 @@ hr {
   padding-right: 0;
   text-align: right; }
   @media (max-width: 1023px) {
-    .one-question .date {
+    .one-question .main-question .date {
       padding: 0 13px; } }
   @media (max-width: 900px) {
-    .one-question .date {
+    .one-question .main-question .date {
       min-width: 100%;
       margin-left: 0;
       margin-right: 0; } }
-.one-question .tags {
+.one-question .main-question .tags {
   display: block;
   float: left;
   width: 50%;
   padding: 0 25px;
   padding-left: 0; }
   @media (max-width: 1023px) {
-    .one-question .tags {
+    .one-question .main-question .tags {
       padding: 0 13px; } }
   @media (max-width: 900px) {
-    .one-question .tags {
+    .one-question .main-question .tags {
       min-width: 100%;
       margin-left: 0;
       margin-right: 0; } }
-  .one-question .tags a {
+  .one-question .main-question .tags a {
     font-size: smaller; }
-.one-question .user {
+.one-question .main-question .user {
   font-size: smaller;
   display: block;
   float: left;
@@ -302,16 +310,199 @@ hr {
   padding-right: 0;
   text-align: right; }
   @media (max-width: 1023px) {
-    .one-question .user {
+    .one-question .main-question .user {
       padding: 0 13px; } }
   @media (max-width: 900px) {
-    .one-question .user {
+    .one-question .main-question .user {
       min-width: 100%;
       margin-left: 0;
       margin-right: 0; } }
+.one-question .answers {
+  clear: both;
+  display: block;
+  width: 100%;
+  padding: 0;
+  *zoom: 1; }
+  .one-question .answers:before, .one-question .answers:after {
+    content: "";
+    display: table; }
+  .one-question .answers:after {
+    clear: both; }
+  .one-question .answers h2 {
+    border-bottom: 3px solid #081635;
+    padding: 6px 0; }
+  .one-question .answers .answer {
+    background-color: #fafafa;
+    padding: 13px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px; }
+    .one-question .answers .answer .date {
+      font-size: smaller;
+      float: right; }
+    .one-question .answers .answer .user {
+      font-size: smaller; }
+    .one-question .answers .answer hr {
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.3); }
+    .one-question .answers .answer h1, .one-question .answers .answer h2, .one-question .answers .answer h3, .one-question .answers .answer h4, .one-question .answers .answer h5, .one-question .answers .answer h6 {
+      font-family: "Josefin Slab", serif; }
+    .one-question .answers .answer .comment .date {
+      display: block;
+      float: left;
+      width: 50%;
+      padding: 0 25px;
+      padding: 0;
+      font-size: small; }
+      @media (max-width: 1023px) {
+        .one-question .answers .answer .comment .date {
+          padding: 0 13px; } }
+      @media (max-width: 900px) {
+        .one-question .answers .answer .comment .date {
+          min-width: 100%;
+          margin-left: 0;
+          margin-right: 0; } }
+    .one-question .answers .answer .comment .user {
+      display: block;
+      float: left;
+      width: 50%;
+      padding: 0 25px;
+      padding: 0;
+      text-align: right;
+      font-size: small; }
+      @media (max-width: 1023px) {
+        .one-question .answers .answer .comment .user {
+          padding: 0 13px; } }
+      @media (max-width: 900px) {
+        .one-question .answers .answer .comment .user {
+          min-width: 100%;
+          margin-left: 0;
+          margin-right: 0; } }
+
+.go-back, .button-nav, .small-button-nav {
+  clear: both; }
+
+.go-back a, .button-nav a {
+  font-family: "Montserrat", sans-serif;
+  font-size: smaller;
+  font-weight: 100;
+  width: auto;
+  display: inline-block;
+  background-color: #081635;
+  color: #fff;
+  padding: 6px 13px;
+  box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+  border-radius: 3px;
+  margin: 25px 0; }
+  .go-back a:hover, .button-nav a:hover {
+    background-color: #d6ae62;
+    box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3) inset;
+    cursor: pointer;
+    text-decoration: none; }
+
+.small-button-nav a {
+  font-family: "Montserrat", sans-serif;
+  font-size: small;
+  font-weight: 100;
+  width: auto;
+  display: inline-block;
+  background-color: #081635;
+  color: #fff;
+  padding: 3px 6px;
+  box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+  border-radius: 2px;
+  margin: 25px 0; }
+  .small-button-nav a:hover {
+    background-color: #d6ae62;
+    box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3) inset;
+    cursor: pointer;
+    text-decoration: none; }
+
+.comment-link {
+  float: right; }
+  .comment-link a {
+    font-size: smaller;
+    font-weight: 100;
+    width: auto;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    padding: 2px;
+    box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+    border-radius: 2px;
+    margin: 5px 0; }
+    .comment-link a:hover {
+      background-color: #d6ae62;
+      box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3) inset;
+      cursor: pointer;
+      text-decoration: none; }
+
+.comment {
+  clear: both;
+  display: block;
+  width: 100%;
+  padding: 0;
+  *zoom: 1;
+  padding: 13px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 13px; }
+  .comment:before, .comment:after {
+    content: "";
+    display: table; }
+  .comment:after {
+    clear: both; }
+  .comment .text {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 0 25px;
+    padding: 0;
+    font-size: smaller;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.3); }
+    @media (max-width: 1023px) {
+      .comment .text {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .comment .text {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+  .comment .date {
+    display: block;
+    float: left;
+    width: 50%;
+    padding: 0 25px;
+    padding: 0;
+    font-size: small; }
+    @media (max-width: 1023px) {
+      .comment .date {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .comment .date {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+  .comment .user {
+    display: block;
+    float: left;
+    width: 50%;
+    padding: 0 25px;
+    padding: 0;
+    text-align: right;
+    font-size: small; }
+    @media (max-width: 1023px) {
+      .comment .user {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .comment .user {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+
+.comments h5 {
+  margin-top: 0; }
 
 form {
-  clear: all;
+  clear: both;
   border: none;
   width: 100%;
   padding: 25px 50px; }
@@ -326,6 +517,8 @@ form {
     box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3) inset;
     border-radius: 6px;
     padding: 13px; }
+  form textarea {
+    resize: vertical; }
   form input[type='submit'] {
     font-family: "Montserrat", sans-serif;
     width: auto;

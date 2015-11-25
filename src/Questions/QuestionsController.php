@@ -11,6 +11,7 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
     private $form;
     private $questions;
+    private $currentQuestion;
 
     public function __construct() {
 
@@ -68,12 +69,13 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
      */
     public function idAction($id = null)
     {     
+        $this->currentQuestion = $id; 
         $question = $this->questions->find($id);
         $answerForm = $this->AnswersController->getForm();
         $answers = $this->AnswersController->getAnswers($id);
         
         $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>Frågor</h1></div>");
-        $this->theme->setTitle($question->id);
+        $this->theme->setTitle($question->subject);
         $this->views->add('questions/list-one', [
             'question' => $question,
             'form' => $answerForm,
@@ -137,11 +139,6 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
             'userId' => $userId,
             'created' => $now
         ]);
-            if ($res == true) {
-                $url = $this->url->create('question');
-                $this->form->AddOutput("<p>Question with id " . $this->questions->id . " was successfully added to the database. " . $now . "</p>");
-                $this->form->AddOutput("<p><a href='" . $url . "' title='Se alla frågor'>Se alla frågor</a></p>");
-            }
         }
         catch (\Exception $e) {
             $this->form->AddOutput("<p>Frågan kunde inte sparas</p>");
@@ -149,16 +146,31 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
         // Add tag relationsships between tags and question
         $this->di->TagsController->connectTagsAction($oldTags, $newTags, $this->questions->id );
         
-        $this->redirectTo();
+        $this->redirectTo('questions/list');
         return true;
     }
 
 
-    public function getQuestion($id)
+    public function getQuestion($id=null)
     {
+        if(!$id) { $id = $this->currentQuestion;}
         $res = $this->questions->find($id);
         $res = $res->getProperties();
+
         return $res;
+
+    }
+
+    public function getCurrentQuestionId()
+    {
+        if($this->currentQuestion) {
+            return $this->currentQuestion;
+        }
+        else {
+            $rp = $this->request->getRouteParts();
+            $this->currentQuestion = $rp[2];
+            return $this->currentQuestion;
+        }
 
     }
 

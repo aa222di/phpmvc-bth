@@ -64,6 +64,15 @@ class CDIFactoryExtended extends CDIFactoryDefault
         });
 
 
+        // Add CommentsController to framework
+        $this->set('CommentsController', function() {
+            $controller = new \Anax\Comments\CommentsController();
+            $controller->setDI($this);
+            $controller->setup();
+            return $controller;
+        });
+
+
         // Add TagsController to framework
         $this->set('TagsController', function() {
             $controller = new \Anax\Tags\TagsController();

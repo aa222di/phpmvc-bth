@@ -4,14 +4,14 @@
 
 		if($this->UserController->isUserLoggedIn()) {
 				?>
-					<nav>
+					<nav class='button-nav'>
 						<a href="<?=$this->url->create('questions/create/');?>">Lägg till ny fråga</a> 
 					</nav>
 				<?php
 			}
 		else {
 				?>
-					<nav>
+					<nav class='button-nav'>
 						<a href="<?=$this->url->create('login');?>">Logga in för att kunna skriva frågor</a> 
 					</nav>
 				<?php
@@ -24,9 +24,10 @@
 		foreach ($questions as $question) {
 			$user = $this->UserController->getUserAction($question->userId);
 			$tags = $this->TagsController->getTagsByQuestion($question->id);
+			$answers = $this->AnswersController->getAnswers($question->id);
 
 
-			$html .= "<div class='question'><h3><a href=" . $this->url->create('questions/id/' . $question->id) . ">" . $question->subject . "</a></h3> <h6>by " . $user->acronym . "</h6>";
+			$html .= "<div class='question'><h3><a href=" . $this->url->create('questions/id/' . $question->id) . ">" . $question->subject . "</a><span class='number-answers'> (" . count($answers) . " svar) </span></h3> <h6>by " . $user->acronym . "</h6>";
 			$html .= "<img src=" . get_gravatar($user->email,80) . ">";
 			$html .= "<article>" . $this->textFilter->doFilter($question->text, 'shortcode, markdown') . "</article><hr><span class='tags'> ";
 				

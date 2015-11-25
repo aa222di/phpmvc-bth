@@ -39,40 +39,9 @@ class AnswersController extends \Anax\MVC\CControllerBasic
     }
 
 
-    /**
-     * List all users.
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-     
-        $all = $this->answers->findAll();
-     
-        $this->theme->setTitle("Alla frågor");
-        $this->views->add('questions/list-all', [
-            'questions' => $all,
-            'title' => "Alla frågor",
-        ]);
-    }
 
-    /**
-     * List user with id.
-     *
-     * @param int $id of user to display
-     *
-     * @return void
-     */
-    public function idAction($id = null)
-    {     
-        $user = $this->users->find($id);
-     
-        $this->theme->setTitle("View user with id");
-        $this->views->add('users/list-one', [
-            'title' => "View user with id " . $id ,
-            'user' => $user,
-        ]);
-    }
+
+
 
     // Register
     /**
@@ -107,57 +76,52 @@ class AnswersController extends \Anax\MVC\CControllerBasic
      * Get answers
      *
      */
-    public function getAnswers($id)
+    public function getAnswerById($answerId)
     {
-        $res = $this->answers->getAnswersforQuestion($id);
+        $res = $this->answers->find($answerId);
+        $res = $res->getProperties();
+        return $res;   
+
+    }
+
+    /**
+     * Get answers
+     *
+     */
+    public function getAnswers($questionId)
+    {
+        $res = $this->answers->getAnswersforQuestion($questionId);
 
         return $res;   
 
     }
 
-    public function addAction($subject, $text, $oldTags = array(), $newTags = null)
+    public function addAction($text)
     {
-        // Add new tags
-        if($newTags) {
-            $this->di->TagsController->addAction($newTags);
-        }
-
+        $questionId = $this->QuestionsController->getCurrentQuestionId();
         // Get user id from logged in user
         $user = $this->UserController->getUserAction();
         $userId = $user->id;
         $now = gmdate('Y-m-d H:i:s');
 
         try {
-            $res = $this->questions->save([
-            'subject'  => $subject,
+            $res = $this->answers->save([
             'text'    => $text,
             'userId' => $userId,
+            'questionId' => $questionId,
             'created' => $now
         ]);
-            if ($res == true) {
-                $url = $this->url->create('question');
-                $this->form->AddOutput("<p>Question with id " . $this->questions->id . " was successfully added to the database. " . $now . "</p>");
-                $this->form->AddOutput("<p><a href='" . $url . "' title='Se alla frågor'>Se alla frågor</a></p>");
-            }
         }
         catch (\Exception $e) {
-            $this->form->AddOutput("<p>Frågan kunde inte sparas</p>");
+            $this->form->AddOutput("<p>Svaret kunde inte sparas</p>");
+            $this->form->AddOutput($e->getMessage());
         }
-        // Add tag relationsships between tags and question
-        $this->di->TagsController->connectTagsAction($oldTags, $newTags, $this->questions->id );
         
         $this->redirectTo();
         return true;
     }
 
 
-    public function getQuestion($id)
-    {
-        $res = $this->questions->find($id);
-        $res = $res->getProperties();
-        return $res;
-
-    }
 
     private function callbackSuccess($form)
     {

@@ -92,10 +92,12 @@ img {
 
 .grid {
 	@include column(12);
+	margin-bottom: $line-height*2;
 }
 
 .question {
 	@include rowwrap();
+	margin-bottom: $line-height * 2;
 	h3 {
 		margin: $line-height 0;
 		@include column(6);
@@ -111,9 +113,13 @@ img {
 	article {
 		@include column(11);
 		padding-right: 0;
+		h1,h2,h3,h4,h5,h6 {
+			font-family: $body-font;
+		}
 	}
 
 	img {
+		clear: both;
 		@include column(1);
 		padding: 0;
 		border-radius: 50%;
@@ -136,36 +142,193 @@ img {
 			
 		}
 	}
+
+	.number-answers {
+		font-size: smaller;
+		font-family: $body-font;
+	}
 }
 
 .one-question {
-	.date {
-		@include column(4, right);
-		padding-right: 0;
-		text-align: right;
-	}
+	.main-question {
+		.date {
+			@include column(4, right);
+			padding-right: 0;
+			text-align: right;
+		}
 
-	.tags {
-		@include column(6);
-			padding-left: 0;
-		a {
+		.tags {
+			@include column(6);
+				padding-left: 0;
+			a {
+				font-size: smaller;
+				
+			}
+		}
+
+		.user {
 			font-size: smaller;
-			
+			@include column(6);
+			padding-right: 0;
+			text-align: right;
 		}
 	}
 
-	.user {
+	.answers {
+		clear: both;
+		@include rowwrap();
+		h2 {
+			border-bottom: 3px solid $primary-color;
+			padding: round(0.25 *$line-height) 0;
+
+		}
+
+		.answer {
+			background-color: #fafafa;
+			padding: round(0.5 *$line-height);
+			border: 1px solid rgba(0,0,0,0.1);
+			margin-bottom: $line-height;
+
+			.date {
+				font-size: smaller;
+				float: right;
+			}
+
+			.user {
+				font-size: smaller;
+			}
+
+			hr {
+				border-bottom: 1px dotted rgba(0,0,0,0.3);
+			}
+			h1,h2,h3,h4,h5,h6 {
+				font-family: $body-font;
+			}
+
+			.comment {
+				.date {
+					@include column(6);
+					padding: 0;
+					font-size: small;
+				}
+				.user {
+					@include column(6);
+					padding: 0;
+					text-align: right;
+					font-size: small;
+				}
+			}
+		}
+	}
+
+}
+
+// NAV
+
+.go-back, .button-nav, .small-button-nav {
+	clear: both;
+}
+
+.go-back a, .button-nav a {
+	font-family: $menu-font;
+	font-size: smaller;
+	font-weight: 100;
+	width: auto;
+	display: inline-block;
+	background-color: $primary-color;
+	color: #fff;
+	padding: round($line-height/4) round($line-height/2);
+	box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+	border-radius: 3px;
+	margin: $line-height 0;
+	&:hover {
+		background-color: $link-color;
+		box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+.small-button-nav a {
+	font-family: $menu-font;
+	font-size: small;
+	font-weight: 100;
+	width: auto;
+	display: inline-block;
+	background-color: $primary-color;
+	color: #fff;
+	padding: round($line-height/8) round($line-height/4);
+	box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+	border-radius: 2px;
+	margin: $line-height 0;
+	&:hover {
+		background-color: $link-color;
+		box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+.comment-link {
+	float: right;
+	a {
+	font-size: smaller;
+	font-weight: 100;
+	width: auto;
+	display: inline-block;
+	background-color:rgba(0,0,0,0.3);
+	color: #fff;
+	padding: round($line-height/16);
+	box-shadow: 1px 1px 1px 0 rgba(255, 255, 255, 0.3) outset;
+	border-radius: 2px;
+	margin: 5px 0;
+	&:hover {
+		background-color: $link-color;
+		box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
+		cursor: pointer;
+		text-decoration: none;
+	}
+	}
+}
+
+// COMMENTS
+.comment {
+	clear: both;
+	@include rowwrap();
+	padding: round($line-height/2);
+	background-color: rgba(0,0,0,0.05);
+	border: 1px solid rgba(0,0,0,0.1);
+	margin-bottom: round($line-height/2);
+
+	.text {
+		@include column(12);
+		padding: 0;
 		font-size: smaller;
+		border-bottom: 1px dotted rgba(0,0,0,0.3);
+	}
+	.date {
 		@include column(6);
-		padding-right: 0;
+		padding: 0;
+		font-size: small;
+	}
+	.user {
+		@include column(6);
+		padding: 0;
 		text-align: right;
+		font-size: small;
+	}
+}
+
+.comments {
+	h5 {
+		margin-top: 0;
 	}
 }
 
 // FORMS 
 
 form {
-	clear: all;
+	clear: both;
 	border: none;
 	width: 100%;
 	padding: $line-height $line-height*2;
@@ -181,6 +344,10 @@ form {
 		box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.3) inset;
 		border-radius: 6px;
 		padding: round($line-height/2);
+	}
+
+	textarea {
+		resize: vertical;
 	}
 	input[type='submit'] {
 		font-family: $menu-font;
