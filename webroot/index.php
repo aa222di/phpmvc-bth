@@ -23,19 +23,14 @@ if($app->session->has(\Anax\User\User::$loginSession)) {
 //var_dump($_SESSION);
 
 // Set up db
-$app->router->add('setup-u', function() use ($app) { 
+$app->router->add('setup', function() use ($app) { 
+	$app->TagsController->dropTable();
     $app->UserController->setupAction();
-    $app->UserController->listAction();
-});
-
-$app->router->add('setup-q', function() use ($app) {
     $app->QuestionsController->setupAction();
-    $app->QuestionsController->listAction();
-});
-
-$app->router->add('setup-t', function() use ($app) {
+    $app->AnswersController->setupAction();
+    $app->CommentsController->setupAction();
     $app->TagsController->setupAction();
-    $app->TagsController->listAction();
+    $app->QuestionsController->listAction();
 });
 
 // Get pages

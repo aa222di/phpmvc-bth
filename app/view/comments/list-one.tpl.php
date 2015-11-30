@@ -16,7 +16,7 @@
 		$html .= "</section><hr><section class='comments'><h3>Kommentarer</h3>";
 
 		foreach ($comments as $comment) {
-			$user = $this->UserController->getUserAction($userId);
+			$user = $this->UserController->getUserAction($comment->userId);
 			$html .= "<div class='comment'><span class='text'>" . $comment->text . "</span><span class='date'>" . $comment->created . "</span><span class='user'><a href=" . $this->url->create('user/id/' . $user->id) . ">" . $user->acronym . "</a></span></span></div>";
 		}
 

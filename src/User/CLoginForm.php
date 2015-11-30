@@ -29,6 +29,7 @@ class CLoginForm extends \Mos\HTMLForm\CForm
         ],
         'submit' => [
             'type'      => 'submit',
+            'value'     => 'Logga in',
             'callback'  => function() {
 
                 $res = $this->di->dispatcher->forward([
@@ -39,13 +40,6 @@ class CLoginForm extends \Mos\HTMLForm\CForm
 
                 $this->saveInSession = true;
                 return $res;
-            }
-        ],
-        'submit-fail' => [
-            'type'      => 'submit',
-            'callback'  => function() {
-                $this->AddOutput("<p><i>DoSubmitFail(): Form was submitted but I failed to process/save/validate it</i></p>");
-                return false;
             }
         ],
     ]);

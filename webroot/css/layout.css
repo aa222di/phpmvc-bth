@@ -501,6 +501,73 @@ hr {
 .comments h5 {
   margin-top: 0; }
 
+.all-users {
+  margin: 50px auto; }
+  .all-users .user {
+    display: block;
+    float: left;
+    width: 33.33333%;
+    padding: 0 25px;
+    text-align: center; }
+    @media (max-width: 1023px) {
+      .all-users .user {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .all-users .user {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+    .all-users .user a img {
+      border-radius: 50%;
+      border: 3px solid #d6ae62;
+      background-color: #081635;
+      padding: 6px;
+      transition: .5s ease all; }
+    .all-users .user a h3 {
+      margin-top: 6px;
+      margin-bottom: 50px; }
+    .all-users .user a:hover {
+      text-decoration: none; }
+      .all-users .user a:hover img {
+        border-color: #081635;
+        background-color: #d6ae62; }
+      .all-users .user a:hover h3 {
+        color: #d6ae62;
+        text-decoration: none; }
+
+.one-user {
+  margin: 50px 0; }
+  .one-user img {
+    border-radius: 50%;
+    transition: .5s ease all;
+    display: block;
+    float: left;
+    width: 25%;
+    padding: 0 25px;
+    padding-left: 0; }
+    @media (max-width: 1023px) {
+      .one-user img {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .one-user img {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+  .one-user article {
+    display: block;
+    float: left;
+    width: 75%;
+    padding: 0 25px;
+    padding-right: 0; }
+    @media (max-width: 1023px) {
+      .one-user article {
+        padding: 0 13px; } }
+    @media (max-width: 900px) {
+      .one-user article {
+        min-width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
+
 form {
   clear: both;
   border: none;

@@ -42,6 +42,7 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
         ],
         'submit' => [
             'type'      => 'submit',
+            'value'     => 'Registrera dig',
             'callback'  => function() {
 
                 $res = $this->di->dispatcher->forward([
@@ -52,13 +53,6 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
 
                 $this->saveInSession = true;
                 return $res;
-            }
-        ],
-        'submit-fail' => [
-            'type'      => 'submit',
-            'callback'  => function() {
-                $this->AddOutput("<p><i>DoSubmitFail(): Form was submitted but I failed to process/save/validate it</i></p>");
-                return false;
             }
         ],
     ]);

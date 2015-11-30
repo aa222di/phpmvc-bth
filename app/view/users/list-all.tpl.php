@@ -1,43 +1,31 @@
 <div class='grid'>
-	<h1><?=$title?></h1>
-	<?php 
+<?php
 	 if (isset($users[0])){
-	$keys = array_keys($users[0]->getProperties());
-	$thead = '<thead>';
-	foreach ($keys as $key => $value) {
-		if ($value != 'password') {
-		$thead .= '<th>' . $value . '</th>';
-		}
-	}
-	$thead .= '<th>Delete</th><th>Edit</th></thead>';
-	$tbody = '<tbody>';
-	foreach ($users as $user) {
-		$values = $user->getProperties();
-		$tbody .= '<tr>';
-		foreach ($values as $key => $value) {
-			if ($key == 'id') {
-				$url = $this->url->create('user/id/' . $value);
-				$tbody .= '<td><a href="' . $url . '">' . $value . '</a></td>';
-			}
-			elseif ($key != 'password') {
-			$tbody .= '<td>' . $value . '</td>';
-			}
-		}
-		$edit = $this->url->create('user/update/' . $values['id']);
-		$delete = $this->url->create('user/softDelete/' . $values['id']);
-		$tbody .= '<td><a href="' . $edit . '">Edit</a></td><td><a href="' . $delete . '">Delete</a></td></tr>';
-	}
-	$tbody .= '</tbody>';
-	$table = '<table>' . $thead . $tbody . '</table>';
+	 	$users = array_reverse($users);
+	
+		$html = "<div class='all-users'>";
+		foreach ($users as $user) {
 
-	echo $table; 
+			$html .= "<div class='user'><a href=" . $this->url->create('user/id/' . $user->id) . "><img src=" . get_gravatar($user->email,160) . "><h3>" . $user->acronym . "</h3></a>";
+
+			
+			/*if(empty($user->text)){
+				$html .= "<article>" . $user->acronym  . " har inte skrivit något presentation ännu</article>";
+			}
+			else {
+				$html .= "<article>" . $this->textFilter->doFilter($user->text, 'shortcode, markdown') . "</article>";
+			}*/
+
+				
+			$html .= "</div>";
+		}
+		$html .= "</div>";
+		echo $html;
+
+
 	}
+
 	?> 
-	<nav>
-		<a href="<?=$this->url->create('user/setup/');?>">Setup</a> 
-		<a href="<?=$this->url->create('user/add/');?>">Add user</a> 
-		<a href="<?=$this->url->create('user/active/');?>">View only active users</a> 
-		<a href="<?=$this->url->create('user/trashcan/');?>">View trashcan</a> 
-	</nav>
+
+
 </div>
- 

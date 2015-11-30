@@ -37,10 +37,20 @@ class TagsController extends \Anax\MVC\CControllerBasic
      */
     public function setupAction()
     {
-       $this->t2q->dropTable();
        $this->tags->setup();
        $this->t2q->setup();
        
+    }
+
+
+    /**
+     * Reset and setup database table
+     *
+     * @return void
+     */
+    public function dropTable()
+    {
+       $this->t2q->dropTable();
     }
 
 

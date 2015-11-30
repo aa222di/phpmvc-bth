@@ -325,6 +325,58 @@ img {
 	}
 }
 
+// USERS
+
+.all-users {
+	margin: $line-height*2 auto;
+
+	.user {
+		@include column(4);
+		text-align: center;
+
+		a {
+			img {
+				border-radius: 50%;
+				border: 3px solid $link-color;
+				background-color: $primary-color;
+				padding: round($line-height/4);
+				transition: .5s ease all;
+			}
+
+			h3 {
+				margin-top: round($line-height/4);
+				margin-bottom: $line-height*2;
+			}
+
+			&:hover {
+				text-decoration: none;
+				img {
+					border-color: $primary-color;
+					background-color: $link-color;
+				}
+				h3 {
+					color: $link-color;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+.one-user {
+	margin: $line-height*2 0;
+	img {
+		border-radius: 50%;
+		transition: .5s ease all;
+		@include column(3);
+		padding-left: 0;
+	}
+	article {
+		@include column(9);
+		padding-right: 0;
+	}
+}
+
 // FORMS 
 
 form {

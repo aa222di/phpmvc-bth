@@ -35,37 +35,37 @@ class Comments extends \Anax\MVC\CDatabaseModel
         $now = gmdate('Y-m-d H:i:s');
      
         $this->create([
-            'userId' => '2',
+            'userId' => '1',
             'questionId' => '1',
-            'text' => 'Kommentar på fråga ett',
+            'text' => 'Jag menar inte att inga ägg eller mjöl får användas - vill bara undvika att det blir för mycket pannkaka av det hela.',
             'created' => $now
         ]);
      
         $this->create([
-            'userId' => '2',
+            'userId' => '3',
             'questionId' => '2',
-            'text' => 'Kommentar på fråga två',
+            'text' => 'Undrar också detta',
             'created' => $now
         ]);
 
         $this->create([
             'userId' => '2',
             'questionId' => '2',
-            'text' => 'Kommentar två på fråga två',
+            'text' => 'Då är vi två! :)',
             'created' => $now
         ]);
 
         $this->create([
             'userId' => '1',
             'answerId' => '1',
-            'text' => 'Kommentar på svar',
+            'text' => 'Tack!! Ska prova redan ikväll! :)',
             'created' => $now
         ]);
 
         $this->create([
-            'userId' => '1',
+            'userId' => '2',
             'answerId' => '1',
-            'text' => 'Kommentar igen på samma svar',
+            'text' => 'Ingen orsak! :)',
             'created' => $now
         ]);
 

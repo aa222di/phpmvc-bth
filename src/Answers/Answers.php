@@ -36,14 +36,21 @@ class Answers extends \Anax\MVC\CDatabaseModel
         $this->create([
             'userId' => '2',
             'questionId' => '1',
-            'text' => 'Svar på fråga ett',
+            'text' => 'Prova att blanda sojafärs med hemmagjord seitan. Seitan är ju enbart protein och dessutom väldigt flexibelt och levande så länge dne är rå. När du blandar dessa två får din burgare mer textur.',
+            'created' => $now
+        ]);
+
+        $this->create([
+            'userId' => '3',
+            'questionId' => '1',
+            'text' => 'Skorpmjöl, havregryn eller andra goda gryn såsom råg och vete är supergott och ger bra tuggmotstånd!',
             'created' => $now
         ]);
      
         $this->create([
-            'userId' => '2',
+            'userId' => '1',
             'questionId' => '2',
-            'text' => 'Svar på fråga två',
+            'text' => 'Koka hirsen eller quinoan med grönssaksbuljong för att få god smak. Sedan skulle jag personligen dryga ut med seitan eller lite champijoner eller annat som ger mer textur också.',
             'created' => $now
         ]);
 

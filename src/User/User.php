@@ -22,21 +22,31 @@ public function setup()
         [
             'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
             'acronym' => ['varchar(20)', 'unique', 'not null'],
-            'email' => ['varchar(80)'],
-            'password' => ['varchar(255)'],
+            'email' => ['varchar(80)', 'not null'],
+            'password' => ['varchar(255)', 'not null'],
+            'text' => ['text'],
         ]
     )->execute();
  
     $this->create([
-        'acronym' => 'admin',
-        'email' => 'admin@dbwebb.se',
-        'password' => password_hash('admin', PASSWORD_DEFAULT)
+        'acronym' => 'Amanda',
+        'email' => 'amanda.aberg@hotmail.com',
+        'password' => password_hash('admin', PASSWORD_DEFAULT),
+        'text' => 'Hej! Jag är sidans administratör och en flitig hamburgerätare. Har varit vegetarian i mer än tio år och älskar att förfina recept för vegetariska burgare.'
     ]);
  
     $this->create([
-        'acronym' => 'doe',
+        'acronym' => 'Doe',
         'email' => 'doe@dbwebb.se',
-        'password' => password_hash('doe', PASSWORD_DEFAULT)
+        'password' => password_hash('doe', PASSWORD_DEFAULT),
+        'text' => 'Hej! Jag är en exempelanvändare och finns här för att visa hur frågor, svar och kommentarer kan se ut',
+    ]);
+
+    $this->create([
+        'acronym' => 'Toeswade',
+        'email' => 'toeswade@dbwebb.se',
+        'password' => password_hash('toeswade', PASSWORD_DEFAULT),
+        'text' => 'Hej! Jag är en exempelanvändare och finns här för att visa hur frågor, svar och kommentarer kan se ut',
     ]);
 
 }

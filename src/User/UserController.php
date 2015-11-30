@@ -61,7 +61,7 @@ class UserController extends \Anax\MVC\CControllerBasic
                 $this->callbackSuccess($this->loginForm);
             }
             elseif($status === false) {
-                $this->callbackFail($this->loginForm);
+                $this->callbackFailLogin($this->loginForm);
             }
              return $this->loginForm->getHTML();
         
@@ -89,10 +89,10 @@ class UserController extends \Anax\MVC\CControllerBasic
      
         $all = $this->users->findAll();
      
-        $this->theme->setTitle("List all users");
+        $this->theme->setTitle("Visa alla användare");
+        $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>Alla användare</h1></div>");
         $this->views->add('users/list-all', [
             'users' => $all,
-            'title' => "View all users",
         ]);
     }
 
@@ -142,6 +142,7 @@ class UserController extends \Anax\MVC\CControllerBasic
         $user = $this->users->find($id);
      
         $this->theme->setTitle("View user with id");
+        $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>" . $user->acronym . "</h1></div>");
         $this->views->add('users/list-one', [
             'title' => "View user with id " . $id ,
             'user' => $user,
@@ -150,7 +151,7 @@ class UserController extends \Anax\MVC\CControllerBasic
 
     // Register
     /**
-     * Add new user.
+     * @return string - html form
      *
      */
     public function registerAction()
@@ -162,7 +163,7 @@ class UserController extends \Anax\MVC\CControllerBasic
             $this->callbackSuccess($this->registerForm);
         }
         elseif($status === false) {
-            $this->callbackFail($this->registerForm);
+            $this->callbackFailRegister($this->registerForm);
         }
          return $this->registerForm->getHTML();
     }
@@ -170,7 +171,7 @@ class UserController extends \Anax\MVC\CControllerBasic
 
     /**
      * Add new user.
-     *
+     * @return void - redirects to login page.
      */
     public function addAction($acronym, $password, $email)
     {
@@ -182,16 +183,16 @@ class UserController extends \Anax\MVC\CControllerBasic
         ]);
             if ($res == true) {
                 $url = $this->url->create('user/list/');
-                $this->form->AddOutput("<p>User with id " . $this->users->id . " was successfully added to the database</p>");
-                $this->form->AddOutput("<p><a href='" . $url . "' title='list all users'>List all users</a></p>");
+                $this->form->AddOutput("<p>Du har blivit registrerad med framgång goch kan nu logga in</p>");
             }
         }
         catch (\Exception $e) {
             $this->form->AddOutput("<p>Användaren kunde inte bli registrerad, testa med ett annat användarnamn</p>");
+            $this->redirectTo();
         }
 
         
-        $this->redirectTo();
+        $this->redirectTo('login');
         return true;
     }
 
@@ -202,24 +203,18 @@ class UserController extends \Anax\MVC\CControllerBasic
             $this->redirectTo();
     }
 
-    private function callbackFail($form)
+    private function callbackFailLogin($form)
     {
             // What to do if the form was submitted?
-            $form->AddOUtput("<p><i>Form was submitted and the callback method returned FALSE</i></p>");
+            $form->AddOUtput("<p><i>Användarnamn eller lösenord är felaktiga</i></p>");
             $this->redirectTo();
     }
 
-
-    // Login
-
-    // Logout
-
-    // Register form
-   
-
-
-    // Login form
-
-    // Logout form
+    private function callbackFailRegister($form)
+    {
+            // What to do if the form was submitted?
+            $form->AddOUtput("<p><i>Något gick fel</i></p>");
+            $this->redirectTo();
+    }
  
 }
