@@ -2,16 +2,14 @@
 namespace Anax\Answers;
  
 /**
- * Model for Users.
+ * Model for Answers.
  *
  */
 class Answers extends \Anax\MVC\CDatabaseModel
 {
 
      /**
-     * Setup table for users.
-     *
-     * @return boolean true or false if saving went okey.
+     * Setup table for answrs.
      */
     public function setup()
     {
@@ -63,5 +61,15 @@ class Answers extends \Anax\MVC\CDatabaseModel
             $this->db->execute([$id]);
             $this->db->setFetchModeClass(__CLASS__);
             return $this->db->fetchAll();
+    }
+
+
+    public function getAnswersForUser($id) {
+        $this->db->select()
+        ->from($this->getSource())
+        ->where("userId = ?");
+        $this->db->execute([$id]);
+        $this->db->setFetchModeClass(__CLASS__);
+        return $this->db->fetchAll();
     }
 }

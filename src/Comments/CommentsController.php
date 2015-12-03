@@ -43,11 +43,13 @@ class CommentsController extends \Anax\MVC\CControllerBasic
     /**
      * Add new user.
      * @param type string - question or answer
+     * @param id, int
+     * @return void, but writes to view
      *
      */
     public function formAction($type, $id)
     {
-        // Check if answer or question
+        // Check if answer or question and get form
         if($type == 'answer') {
             $this->form = new CCommentsForm($id, null);
             $this->form->setDI($this->di);
@@ -82,6 +84,8 @@ class CommentsController extends \Anax\MVC\CControllerBasic
                 'form' => $form,
             ]);
         }
+
+        // Ask user to login if not logged in
         else {
             // Prepare the page content
             $this->theme->setVariable('title', "Kommentera")
@@ -94,10 +98,11 @@ class CommentsController extends \Anax\MVC\CControllerBasic
 
     }
 
-        // Register
+
     /**
      * Get comments for answer
-     *
+     * @param id int
+     * @return array 
      */
     public function getCommentsForAnswer($id)
     {
@@ -109,7 +114,8 @@ class CommentsController extends \Anax\MVC\CControllerBasic
 
     /**
      * Get comments for Questions
-     *
+     * @param id int
+     * @return array 
      */
     public function getCommentsForQuestion($id)
     {
@@ -119,6 +125,13 @@ class CommentsController extends \Anax\MVC\CControllerBasic
 
     }
 
+    /**
+     * Add comment
+     * @param id int
+     * @param answerId int (optional)
+     * @param questionId int (optional)
+     * @return boolean - redirects to same url
+     */
     public function addCommentAction($text, $answerId = null, $questionId = null)
     {
         // Get user id from logged in user
@@ -160,16 +173,6 @@ class CommentsController extends \Anax\MVC\CControllerBasic
     }
 
 
-    // Login
 
-    // Logout
-
-    // Register form
-   
-
-
-    // Login form
-
-    // Logout form
  
 }

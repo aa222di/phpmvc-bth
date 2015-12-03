@@ -1,7 +1,7 @@
 <?php
 namespace Anax\User;
 
-class CRegisterForm extends \Mos\HTMLForm\CForm
+class CEditForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,
         \Anax\MVC\TRedirectHelpers;
@@ -9,7 +9,7 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
      * Constructor
      *
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         parent::__construct([], [
         'acronym' => [
@@ -17,35 +17,32 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
             'label'       => 'Användarnamn',
             'required'    => true,
             'validation'  => ['not_empty'],
+            'value'       => $user->acronym,  
         ],
-        'password' => [
-            'type'        => 'password',
-            'label'       => 'Lösenord',
-            'required'    => true,
-            'validation'  => ['not_empty'],
-        ],
-        'pwd-repeat' => [
-            'type'        => 'password',
-            'label'       => 'Repetera lösenord',
-            'required'    => true,
-             'validation' => [
-                'match' => 'password'
-            ],
+        'text' => [
+            'type'        => 'textarea',
+            'label'       => 'Presentation',
+            'value'       => $user->text,
         ],
         'email' => [
             'type'        => 'text',
             'required'    => true,
             'validation'  => ['not_empty', 'email_adress'],
+            'value'       => $user->email,
+        ],
+        'id' => [
+            'type'        => 'hidden',
+            'value'       => $user->id,
         ],
         'submit' => [
             'type'      => 'submit',
-            'value'     => 'Registrera dig',
+            'value'     => 'Spara ändringar',
             'callback'  => function() {
 
                 $res = $this->di->dispatcher->forward([
                     'controller' => 'user',
-                    'action'     => 'add',
-                    'params'     => [$this->Value('acronym'), $this->Value('password'), $this->Value('email')]
+                    'action'     => 'update',
+                    'params'     => [ $this->Value('id'), $this->Value('acronym'), $this->Value('email'), $this->Value('text')]
                 ]);
 
                 $this->saveInSession = true;
@@ -53,10 +50,6 @@ class CRegisterForm extends \Mos\HTMLForm\CForm
             }
         ],
     ]);
-
     }
 
-    public function getAcronym() {
-        return $this->Value('acronym');
-    }
 }

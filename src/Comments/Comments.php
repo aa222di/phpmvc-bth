@@ -2,16 +2,14 @@
 namespace Anax\Comments;
  
 /**
- * Model for Users.
+ * Model for Comments.
  *
  */
 class Comments extends \Anax\MVC\CDatabaseModel
 {
 
      /**
-     * Setup table for users.
-     *
-     * @return boolean true or false if saving went okey.
+     * Setup table for comments.
      */
     public function setup()
     {

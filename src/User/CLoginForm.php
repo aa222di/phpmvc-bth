@@ -1,9 +1,6 @@
 <?php
 namespace Anax\User;
-/**
- * Anax base class for wrapping sessions.
- *
- */
+
 class CLoginForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,

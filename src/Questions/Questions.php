@@ -2,16 +2,14 @@
 namespace Anax\Questions;
  
 /**
- * Model for Users.
+ * Model for Questions.
  *
  */
 class Questions extends \Anax\MVC\CDatabaseModel
 {
 
      /**
-     * Setup table for users.
-     *
-     * @return boolean true or false if saving went okey.
+     * Setup table for questions.
      */
     public function setup()
     {
@@ -47,5 +45,25 @@ class Questions extends \Anax\MVC\CDatabaseModel
             'created' => $now
         ]);
 
+    }
+
+
+    public function getQuestionsForUser($id) {
+        $this->db->select()
+        ->from($this->getSource())
+        ->where("userId = ?");
+        $this->db->execute([$id]);
+        $this->db->setFetchModeClass(__CLASS__);
+        return $this->db->fetchAll();
+    }
+
+    public function getLatestQuestions($limit) {
+        $this->db->select()
+        ->from($this->getSource())
+        ->orderby('created DESC')
+        ->limit($limit);
+        $this->db->execute();
+        $this->db->setFetchModeClass(__CLASS__);
+        return $this->db->fetchAll();
     }
 }

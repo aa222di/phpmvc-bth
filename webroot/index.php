@@ -18,9 +18,6 @@ if($app->session->has(\Anax\User\User::$loginSession)) {
 	$app->topnav->configure(ANAX_APP_PATH . 'config/topnav_logout.php');
 }
 
-//echo $app->session->get('');
-//echo \Anax\User\User::$loginSession;
-//var_dump($_SESSION);
 
 // Set up db
 $app->router->add('setup', function() use ($app) { 
@@ -42,7 +39,24 @@ $app->router->add('', function() use ($app) {
 	$app->theme->addStylesheet('css/slideshow.css')
            	   ->addJavaScript('js/slideshow.js');
 
+    $latestQuestions = $app->QuestionsController->getLatestQuestions(3);
+    $popularTags = $app->TagsController->getPopularTags(3);
+    $activeUsers = $app->UserController->getMostActiveUsers(3);
+
 	// Prepare the page content
+		$app->views->add('questions/question', [
+            'questions' => $latestQuestions,
+        ]);
+        $app->views->add('tags/popular', [
+            'tags' => $popularTags,
+            'title' => 'Populäraste taggarna'
+        ], 'aside');
+        $app->views->add('users/active', [
+            'users' => $activeUsers,
+            'title' => 'Mest aktiva användare'
+        ], 'aside');
+	
+
 	$app->theme->setVariable('title', "Start")
 			   ->setVariable('pageheader', "		    
 			   	<div id='slideshow' class='slideshow' data-host='' data-path='img/all-about-burgers/' data-images='[\"veggieburger1.jpg\", \"veggieburger2.jpg\", \"veggieburger3.jpg\"]'>
@@ -50,8 +64,8 @@ $app->router->add('', function() use ($app) {
     			</div>
     			")
 	           ->setVariable('main', "
-		    	<h1>Start</h1>
-		    	<p>All about burgers</p>
+		    	<h1>Välkommen</h1>
+		    	<p>Välkommen till allt om vegoburgare! Här finner du tips och trix för att lyckas att få till den bästa vegetariska burgaren i världen! Registrera dig för att kunna ställa frågor och skriva svar.</p>
 				");
  
 });
@@ -102,41 +116,18 @@ $app->router->add('register', function() use ($app) {
 });
 
 // MAIN MENU PAGES
-
-// Questions page 
-$app->router->add('question', function() use ($app) {
-	
-	$app->QuestionsController->listAction();
- 
-});
-
-
-// Tag page 
-$app->router->add('tag', function() use ($app) {
-	
-	$app->TagsController->listAction();
- 
-});
-
-
-// User page 
-$app->router->add('user', function() use ($app) {
-	
-	$app->UserController->listAction();
- 
-});
+// Most pages are handled by the automatic routing webroot/controller/param/param
 
 
 // About page 
 $app->router->add('about', function() use ($app) {
 	
+	 $content = $app->fileContent->get('about.md');
+     $content = $app->textFilter->doFilter($content, 'shortcode, markdown');
 	// Prepare the page content
 	$app->theme->setVariable('title', "Om oss på Allt-Om-Burgare")
 			   ->setVariable('pageheader', "<div class='pageheader'><h1>Om oss</h1></div>")
-	           ->setVariable('main', "
-		    <h1>Om oss på Allt-Om-Burgare</h1>
-		    <p>All about burgers</p>
-		");
+	           ->setVariable('main', $content);
  
 });
 

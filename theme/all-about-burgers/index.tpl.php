@@ -42,16 +42,27 @@
 			<?php endif; ?>
 		</div>
 	</header>
-
-	<main id='main'>
 		<?php if(isset($pageheader)) echo $pageheader?>
 		<?php $this->views->render('pageheader')?>
+	<div class="wrap">
+		<?php if($this->views->hasContent('aside')) {
+				$class = 'column-9';
+			}
+			else {
+				$class = 'column-12';
+			}?>
+		<main id='main' class="<?=$class?>">
+				<?php if(isset($main)) echo $main?>
+				<?php $this->views->render('main')?>
+		</main>
+		<?php if($this->views->hasContent('aside')):?>
+			<aside id="aside">
+					<?php if(isset($aside)) echo $aside?>
+					<?php $this->views->render('aside')?>
+			</aside>
+		<?php endif;?>
+	</div>
 
-		<div class="wrap">
-			<?php if(isset($main)) echo $main?>
-			<?php $this->views->render('main')?>
-		</div>
-	</main>
 
 	<footer id='footer'>
 	<?php if(isset($footer)) echo $footer?>

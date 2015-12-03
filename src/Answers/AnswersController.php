@@ -3,7 +3,7 @@
 namespace Anax\Answers;
  
 /**
- * A controller for users and admin related events.
+ * A controller for answer related events.
  *
  */
 class AnswersController extends \Anax\MVC\CControllerBasic
@@ -16,6 +16,9 @@ class AnswersController extends \Anax\MVC\CControllerBasic
 
     }
 
+    /*
+     * Sets up dependencies - shoudl be called after setDI
+     */ 
     public function setup() {
 
         $this->form = new CAnswersForm();
@@ -39,17 +42,13 @@ class AnswersController extends \Anax\MVC\CControllerBasic
     }
 
 
-
-
-
-
-    // Register
     /**
-     * Add new user.
+     * get form for adding answers to question
      *
      */
     public function getForm()
     {
+        // Get form if user is logged in
         if ($this->UserController->isUserLoggedIn()) {
             $status = $this->form->check();
 
@@ -62,40 +61,22 @@ class AnswersController extends \Anax\MVC\CControllerBasic
 
              return $this->form->getHTML();
         }
+
+        // Else return login link
         else {
-            
                 $loginLink = "<a href=" . $this->url->create('login') . ">Logga in för att kunna svara på frågor</a>";
-                return $loginLink;
-          
+                return $loginLink; 
         }
 
     }
 
-        // Register
-    /**
-     * Get answers
-     *
-     */
-    public function getAnswerById($answerId)
-    {
-        $res = $this->answers->find($answerId);
-        $res = $res->getProperties();
-        return $res;   
 
-    }
+
 
     /**
-     * Get answers
-     *
+     * Adds answer to database
+     * @return array of obj.
      */
-    public function getAnswers($questionId)
-    {
-        $res = $this->answers->getAnswersforQuestion($questionId);
-
-        return $res;   
-
-    }
-
     public function addAction($text)
     {
         $questionId = $this->QuestionsController->getCurrentQuestionId();
@@ -121,6 +102,40 @@ class AnswersController extends \Anax\MVC\CControllerBasic
         return true;
     }
 
+    /**
+     * Get answers
+     * @return array
+     */
+    public function getAnswerById($answerId)
+    {
+        $res = $this->answers->find($answerId);
+        $res = $res->getProperties();
+        return $res;   
+
+    }
+
+    /**
+     * Get answers for questions
+     * @return array of obj.
+     */
+    public function getAnswers($questionId)
+    {
+        $res = $this->answers->getAnswersforQuestion($questionId);
+
+        return $res;   
+
+    }
+
+
+    /*
+     * Get answers by user id
+     */ 
+    public function getAnswersByUser($userId)
+    {
+        $res = $this->answers->getAnswersForUser($userId);
+        return $res;
+    }
+
 
 
     private function callbackSuccess($form)
@@ -136,18 +151,5 @@ class AnswersController extends \Anax\MVC\CControllerBasic
             $form->AddOUtput("<p><i>Form was submitted and the callback method returned FALSE</i></p>");
             $this->redirectTo();
     }
-
-
-    // Login
-
-    // Logout
-
-    // Register form
-   
-
-
-    // Login form
-
-    // Logout form
  
 }

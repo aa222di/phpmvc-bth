@@ -3,7 +3,7 @@
 namespace Anax\Tags;
  
 /**
- * A controller for users and admin related events.
+ * A controller for tag related events.
  *
  */
 class TagsController extends \Anax\MVC\CControllerBasic
@@ -84,6 +84,33 @@ class TagsController extends \Anax\MVC\CControllerBasic
         return $this->allTags;
     }
 
+
+    /**
+     * Return array with tags sorted  by popularity
+     *
+     * @return void
+     */
+    public function getPopularTags($limit)
+    {
+     
+        $all = $this->allTags;
+        $tagsArray = array();
+        foreach ($all as $tag) {
+            $tagsArray[$tag->id] = count($this->t2q->getQuestionsByTag($tag->id));
+        }
+        arsort($tagsArray);     
+        $popularTags = array();
+        foreach ($tagsArray as $tagId) {
+            foreach ($all as $tag) {
+                if($tag->id == $tagId) {
+                    $popularTags[] = $tag;
+                }
+            }
+        }
+        $mostPopular = array_reverse(array_slice($popularTags, 0, $limit));
+        return  $mostPopular;
+    }
+
     /**
      *
      */
@@ -99,11 +126,12 @@ class TagsController extends \Anax\MVC\CControllerBasic
                 }
             }
         }
+
         return $relatedTags;
     }
 
     /**
-     * List user with id.
+     * List tag with id.
      *
      * @param int $id of user to display
      *
@@ -128,16 +156,6 @@ class TagsController extends \Anax\MVC\CControllerBasic
         ]);
     }
 
-    // Register
-    /**
-     * Add new user.
-     *
-     */
-    public function createAction()
-    {
-
-
-    }
 
     public function addAction($tags)
     {
@@ -213,18 +231,5 @@ class TagsController extends \Anax\MVC\CControllerBasic
             $form->AddOUtput("<p><i>Form was submitted and the callback method returned FALSE</i></p>");
             $this->redirectTo();
     }
-
-
-    // Login
-
-    // Logout
-
-    // Register form
-   
-
-
-    // Login form
-
-    // Logout form
  
 }

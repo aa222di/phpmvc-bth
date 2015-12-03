@@ -1,0 +1,5 @@
+# Om Allt-Om-Burgare
+Webbplatsen hoppas på att samla hamburgerälskande vegetarianer och veganer för att tillsammans bidra med det bästa tipsen och trixen för hur man kan tillaga den godaste vegetariska burgaren. Eftersom det finns så oerhört många kombinationer av vegetariska proteiner, bönor, grönsaker och annat gott kände vi att detta förmodligen är ett ämne som kommer fylla forumet med massvis av intressanta frågor och svar. Hoppas ni gillar sidan!
+
+# Om utvecklaren
+Jag som utvecklat detta projektet heter Amanda Åberg och går min tredje kurs i BTH:s kurspaket. Jag har läser även på programmet för Interaktionsdesign på Linnéuniversitetet. Under senaste året har dock BTH:s kurser hamnat i bakgrunden och jag tog upp denna kurs lite mer än ett år efter att jag påbörjat den. På så vis har detta projekt varit väldigt utvecklande eftersom jag var vädligt ringrostig när jag påbörjade det. Dock upplever att det mesta har kommit tillbaka under projektets gång.

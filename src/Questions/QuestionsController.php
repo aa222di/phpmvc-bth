@@ -3,7 +3,7 @@
 namespace Anax\Questions;
  
 /**
- * A controller for users and admin related events.
+ * A controller for question related events
  *
  */
 class QuestionsController extends \Anax\MVC\CControllerBasic
@@ -17,6 +17,9 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
     }
 
+    /*
+     * Sets up dependencies - shoudl be called after setDI
+     */ 
     public function setup() {
 
         $tags = $this->di->TagsController->getTags();
@@ -43,7 +46,7 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
 
     /**
-     * List all users.
+     * List all questions.
      *
      * @return void
      */
@@ -61,13 +64,13 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
     }
 
     /**
-     * List user with id.
+     * Show one question
      *
-     * @param int $id of user to display
+     * @param int $id of question to display
      *
      * @return void
      */
-    public function idAction($id = null)
+    public function idAction($id)
     {     
         $this->currentQuestion = $id; 
         $question = $this->questions->find($id);
@@ -83,9 +86,9 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
         ]);
     }
 
-    // Register
+
     /**
-     * Add new user.
+     * Create new question
      *
      */
     public function createAction()
@@ -120,6 +123,9 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
     }
 
+    /*
+     * Add a questions to the database and connects it with tags
+     */ 
     public function addAction($subject, $text, $oldTags = array(), $newTags = null)
     {
         // Add new tags
@@ -151,6 +157,20 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
     }
 
 
+    /*
+     * Get lastest questions
+     */ 
+    public function getLatestQuestions($limit)
+    {
+        
+        $res = $this->questions->getLatestQuestions($limit);
+        return $res;
+
+    }
+
+    /*
+     * Get questions by id
+     */ 
     public function getQuestion($id=null)
     {
         if(!$id) { $id = $this->currentQuestion;}
@@ -161,6 +181,18 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
 
     }
 
+    /*
+     * Get questions by user is
+     */ 
+    public function getQuestionsByUser($userId)
+    {
+        $res = $this->questions->getQuestionsForUser($userId);
+        return $res;
+    }
+
+    /*
+     * Gets the current questions if from url
+     */ 
     public function getCurrentQuestionId()
     {
         if($this->currentQuestion) {
@@ -188,17 +220,5 @@ class QuestionsController extends \Anax\MVC\CControllerBasic
             $this->redirectTo();
     }
 
-
-    // Login
-
-    // Logout
-
-    // Register form
-   
-
-
-    // Login form
-
-    // Logout form
  
 }

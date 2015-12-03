@@ -1,9 +1,6 @@
 <?php
 namespace Anax\Answers;
-/**
- * Anax base class for wrapping sessions.
- *
- */
+
 class CAnswersForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,

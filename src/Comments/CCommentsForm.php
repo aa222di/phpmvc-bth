@@ -1,9 +1,6 @@
 <?php
 namespace Anax\Comments;
-/**
- * Anax base class for wrapping sessions.
- *
- */
+
 class CCommentsForm extends \Mos\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,
@@ -47,6 +44,4 @@ class CCommentsForm extends \Mos\HTMLForm\CForm
     ]);
     
     }
-
-
 }

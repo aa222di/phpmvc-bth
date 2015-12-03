@@ -18,6 +18,7 @@ class UserController extends \Anax\MVC\CControllerBasic
     public function __construct() {
         $this->registerForm = new CRegisterForm();
         $this->loginForm = new CLoginForm();
+        
         $this->users = new User();
 
     }
@@ -26,6 +27,7 @@ class UserController extends \Anax\MVC\CControllerBasic
         $this->di = $di;
         $this->registerForm->setDI($this->di);
         $this->loginForm->setDI($this->di);
+
         $this->users->setDI($this->di);
     }
 
@@ -137,19 +139,61 @@ class UserController extends \Anax\MVC\CControllerBasic
      *
      * @return void
      */
-    public function idAction($id = null)
+    public function idAction($id)
     {     
+        
+        $edit = false;
+        $loggedIn = $this->users->getLoggedInUser();
+        if($loggedIn->id === $id) {
+            $edit = true;
+        }
         $user = $this->users->find($id);
-     
-        $this->theme->setTitle("View user with id");
+        $questions = $this->QuestionsController->getQuestionsByUser($id);
+        $answers = $this->AnswersController->getAnswersByUser($id);
+
+        $this->theme->setTitle($user->acronym);
         $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>" . $user->acronym . "</h1></div>");
         $this->views->add('users/list-one', [
-            'title' => "View user with id " . $id ,
             'user' => $user,
+            'questions' => $questions,
+            'discussions' => $answers,
+            'edit'      => $edit
         ]);
     }
 
-    // Register
+    /**
+     * @return string - html form
+     *
+     */
+    public function editAction($id)
+    {
+        $user = $this->users->find($id);
+        $form = new CEditForm($user);
+        $form->setDI($this->di);
+        $status = $form->check();
+
+        if($status === true) {
+            $this->callbackSuccess($form);
+        }
+        elseif($status === false) {
+            $this->callbackFailRegister($form);
+        }
+
+        $this->theme->setTitle( "Redigera profil för " . $user->acronym);
+        $this->theme->setVariable('pageheader', "<div class='pageheader'><h1>Redigera profil för " . $user->acronym . "</h1></div>");
+        if($this->users->isUserLoggedIn()) {
+            $this->theme->setVariable('main', $form->getHTML());
+        }
+        else{
+            $this->theme->setVariable('main', "
+                    <h1>Redigera profil</h1>
+                    <a href=" . $this->url->create('login') . ">Logga in för att kunna redigera din profil</a>");
+        }
+
+
+    }
+
+
     /**
      * @return string - html form
      *
@@ -196,11 +240,70 @@ class UserController extends \Anax\MVC\CControllerBasic
         return true;
     }
 
+        /**
+     * Add new user.
+     * @return void - redirects to login page.
+     */
+    public function updateAction( $id ,$acronym, $email, $text)
+    {
+        try {
+            $res = $this->users->save([
+            'id'       => $id,
+            'acronym'  => $acronym,
+            'email'    => $email,
+            'text'     => $text,
+        ]);
+            if ($res == true) {
+                $this->form->AddOutput("<p>Dina ändringar har sparats</p>");
+            }
+        }
+        catch (\Exception $e) {
+            $this->form->AddOutput("<p>Användarnamnet är inte unikt, försök med ett annat</p>");
+            $this->redirectTo();
+        }
+
+        
+        $this->redirectTo();
+        return true;
+    }
+
+    /**
+     * Get the most active users
+     *
+     * @param int how many users to return
+     *
+     * @return array of obj User
+     */
+    public function getMostActiveUsers($limit)
+    {     
+        $users = $this->users->findAll();
+        $mostActive = array();
+        foreach ($users as $user) {
+           $questions = $this->QuestionsController->getQuestionsByUser($user->id);
+           $answers = $this->AnswersController->getAnswersByUser($user->id);
+           $mostActive[$user->id] = count($questions) + count($answers); 
+        }
+        arsort($mostActive);     
+        $mostActiveUsers = array();
+        foreach ($mostActive as $userId => $val) {
+            foreach ($users as $user) {
+
+                if($user->id == $userId) {
+                    $mostActiveUsers[] = $user;
+
+                }
+            }
+        }
+        $topMostActive = array_reverse(array_slice($mostActiveUsers, 0, $limit));
+        return $topMostActive;
+        //return $mostActive;
+    }
+
     private function callbackSuccess($form)
     {
             // What to do if the form was submitted?
-            $form->AddOUtput("<p><i>Form was submitted and the callback method returned TRUE</i></p>");
-            $this->redirectTo();
+            $user = $this->users->getLoggedInUser();
+            $this->redirectTo('user/id/' . $user->id);
     }
 
     private function callbackFailLogin($form)

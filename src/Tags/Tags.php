@@ -1,17 +1,12 @@
 <?php
 namespace Anax\Tags;
  
-/**
- * Model for Users.
- *
- */
+
 class Tags extends \Anax\MVC\CDatabaseModel
 {
 
      /**
-     * Setup table for users.
-     *
-     * @return boolean true or false if saving went okey.
+     * Setup table for tags.
      */
     public function setup()
     {
