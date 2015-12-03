@@ -11,13 +11,6 @@ return [
     // Here comes the menu strcture
     'items' => [
 
-            // This is a menu item
-        'user' => [
-            'text'  =>'Mitt konto',
-            'url'   => $this->di->get('url')->create('user\account'),
-            'title' => 'Se ditt konto',
-        ],
-
         // This is a menu item
         'logout'  => [
             'text'  => 'Logga ut',
