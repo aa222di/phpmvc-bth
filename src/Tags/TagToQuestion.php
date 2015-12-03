@@ -21,22 +21,13 @@ class TagToQuestion extends \Anax\MVC\CDatabaseModel
     public function setup()
     {
         $this->db->dropTableIfExists('tagtoquestion')->execute();
-        $query = "CREATE TABLE `tagtoquestion` (
-                  `idTags` INT NOT NULL,
-                  `idQuestions` INT NOT NULL,
-                  INDEX `idQuestions_idx` (`idQuestions` ASC, `idTags` ASC),
-                  CONSTRAINT `idTags`
-                    FOREIGN KEY (`idTags`)
-                    REFERENCES `tags` (`id`)
-                    ON DELETE NO ACTION
-                    ON UPDATE NO ACTION,
-                  CONSTRAINT `idQuestions`
-                    FOREIGN KEY (`idQuestions`)
-                    REFERENCES `questions` (`id`)
-                    ON DELETE NO ACTION
-                    ON UPDATE NO ACTION);";
-        $this->db->execute($query);
-
+        $this->db->createTable(
+            'tagtoquestion',
+            [
+                'idTags' => ['integer', 'not null'],
+                'idQuestions' => ['integer', 'not null'],
+            ]
+        )->execute();
 
         $this->create([
             'idQuestions' => '1',

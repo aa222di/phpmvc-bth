@@ -56,13 +56,6 @@ class CQuestionsForm extends \Mos\HTMLForm\CForm
                 return $res;
             }
         ],
-        'submit-fail' => [
-            'type'      => 'submit',
-            'callback'  => function() {
-                $this->AddOutput("<p><i>DoSubmitFail(): Form was submitted but I failed to process/save/validate it</i></p>");
-                return false;
-            }
-        ],
     ]);
     }
     

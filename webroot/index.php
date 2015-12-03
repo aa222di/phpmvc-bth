@@ -3,7 +3,6 @@
  * This is a Anax pagecontroller.
  *
  */
-
 // Get environment & autoloader and the $app-object.
 require __DIR__.'/config_with_app.php';
 $app->session();
@@ -17,17 +16,40 @@ $app->navbar->configure(ANAX_APP_PATH . 'config/navbar_aab.php');
 if($app->session->has(\Anax\User\User::$loginSession)) {
 	$app->topnav->configure(ANAX_APP_PATH . 'config/topnav_logout.php');
 }
-
+//var_dump($di);
 
 // Set up db
-$app->router->add('setup', function() use ($app) { 
-	$app->TagsController->dropTable();
+$app->router->add('setup', function() use ($di) { 
+	
+	$t2q = new \Anax\Tags\TagToQuestion();
+	$q = new \Anax\Questions\Questions();
+	$t = new \Anax\Tags\Tags();
+	$u = new \Anax\User\User();
+	$a = new \Anax\Answers\Answers();
+	$c = new \Anax\Comments\Comments();
+
+	$t->setDI($di);
+	$q->setDI($di);
+	$u->setDI($di);
+	$a->setDI($di);
+	$c->setDI($di);
+	$t2q->setDI($di);
+
+	$t2q->dropTable();
+	$t->setup();
+	$q->setup();
+	$u->setup();
+	$a->setup();
+	$c->setup();
+	$t2q->setup();
+
+	/*$app->TagsController->dropTable();
     $app->UserController->setupAction();
     $app->QuestionsController->setupAction();
     $app->AnswersController->setupAction();
     $app->CommentsController->setupAction();
-    $app->TagsController->setupAction();
-    $app->QuestionsController->listAction();
+    $app->TagsController->setupAction();*/
+    //$app->QuestionsController->listAction();
 });
 
 // Get pages
