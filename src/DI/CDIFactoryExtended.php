@@ -21,9 +21,9 @@ class CDIFactoryExtended extends CDIFactoryDefault
         $this->setShared('db', function() {
             $db = new \Mos\Database\CDatabaseBasic();
                 // LOCALp
-            $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql.php');
+            //$db->setOptions(require ANAX_APP_PATH . 'config/config_mysql.php');
                 // BTH
-            // $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql_bth.php');
+             $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql_bth.php');
             
             $db->connect();
             return $db;
